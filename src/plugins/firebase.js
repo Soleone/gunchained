@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import * as firebaseui from 'firebaseui'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/database'
@@ -10,11 +11,12 @@ if (!firebase.apps.length) {
 
 export const authProviders = [
   firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-  firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-  firebase.auth.GithubAuthProvider.PROVIDER_ID,
   firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  firebase.auth.PhoneAuthProvider.PROVIDER_ID
+  firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+  // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+  // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+  // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
 ]
 export const auth = firebase.auth()
 export const db = firebase.database()
