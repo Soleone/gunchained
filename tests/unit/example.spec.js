@@ -1,11 +1,11 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import Login from '@/components/Login.vue'
+import FirebaseUI from '@/components/FirebaseUI.vue'
 
-describe('Login.vue', () => {
+describe('FirebaseUI.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message'
-    const wrapper = shallowMount(Login, {
+    const wrapper = shallowMount(FirebaseUI, {
       propsData: { msg }
     })
     expect(wrapper.text()).to.include(msg)

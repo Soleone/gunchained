@@ -14,7 +14,10 @@
       </div>
 
       <v-spacer></v-spacer>
-      <div class="d-flex align-right">
+      <div v-if="!user">
+        <v-btn to="/login" text rounded>Login</v-btn>
+      </div>
+      <div v-if="user" class="d-flex align-right">
         {{ userName }}
       </div>
     </v-app-bar>
@@ -27,12 +30,20 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import firebase from 'firebase/app'
 
 export default {
   name: 'App',
   computed: {
     ...mapState(['user']),
     ...mapGetters(['userName'])
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('setUser', user)
+      }
+    })
   }
 }
 </script>

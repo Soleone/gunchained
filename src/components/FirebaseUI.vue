@@ -1,7 +1,22 @@
 <template>
-  <div>
-    <div id="firebaseui-auth-container" />
-  </div>
+  <v-container>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-row cols="4">
+        <v-card class="mt-8">
+          <v-card-title class="justify-center">
+            Login
+          </v-card-title>
+          <v-card-subtitle class="text-center">
+            Choose your preferred authentication method.
+          </v-card-subtitle>
+          <v-card-actions>
+            <div id="firebaseui-auth-container" />
+          </v-card-actions>
+        </v-card>
+      </v-row>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -27,15 +42,14 @@ export default {
       const config = {
         signInOptions: authProviders,
         signInSuccessUrl: '/',
-        tosUrl: '/tos',
-        privacyPolicyUrl: '/privacy-policy',
+        autoUpgradeAnonymousUsers: true,
+        tosUrl: '/#/terms-of-service',
+        privacyPolicyUrl: '/#/privacy-policy',
         callbacks: {
           signInSuccessWithAuthResult: result => {
-            console.log('signInSuccessWithAuthResult')
-            console.log(result)
             const user = extractUser(result.user)
-            console.log(user)
             this.$store.dispatch('setUser', user)
+            this.$router.push({ name: 'Home' })
           },
           uiShown: function() {
             console.log('uiShown')
