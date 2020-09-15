@@ -50,9 +50,6 @@ export default {
             const user = extractUser(result.user)
             this.$store.dispatch('setUser', user)
             this.$router.push({ name: 'Home' })
-          },
-          uiShown: function() {
-            console.log('uiShown')
           }
         }
       }

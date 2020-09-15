@@ -19,7 +19,7 @@
       </div>
 
       <div v-if="user" class="d-flex align-right">
-        <v-chip pill>
+        <v-chip pill @click="visitPlayer()">
           <v-avatar left v-if="user.photoURL">
             <img :src="user.photoURL" alt="Avatar image" />
           </v-avatar>
@@ -60,6 +60,9 @@ export default {
         .auth()
         .signOut()
         .then(() => this.$store.dispatch('setUser', null))
+    },
+    visitPlayer() {
+      this.$router.push({ name: 'Player' })
     }
   }
 }
