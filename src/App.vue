@@ -10,15 +10,24 @@
           transition="scale-transition"
           width="40"
         />
-        <h2>Gunchained</h2>
+        <h3>Gunchained</h3>
       </div>
 
       <v-spacer></v-spacer>
       <div v-if="!user">
-        <v-btn to="/login" text rounded>Login</v-btn>
+        <v-btn to="/login" text rounded small>Login</v-btn>
       </div>
+
       <div v-if="user" class="d-flex align-right">
-        {{ userName }}
+        <v-chip pill>
+          <v-avatar left v-if="user.photoURL">
+            <img :src="user.photoURL" alt="Avatar image" />
+          </v-avatar>
+          {{ userName }}
+        </v-chip>
+        <div class="vcenter">
+          <v-btn @click="logout" text rounded small>Logout</v-btn>
+        </div>
       </div>
     </v-app-bar>
 
@@ -44,6 +53,22 @@ export default {
         this.$store.dispatch('setUser', user)
       }
     })
+  },
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => this.$store.dispatch('setUser', null))
+    }
   }
 }
 </script>
+
+<style>
+.vcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

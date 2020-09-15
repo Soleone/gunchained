@@ -26,7 +26,7 @@ export default {
   name: 'FirebaseUI',
   mounted: function() {
     if (process.browser) {
-      let firebaseui = require('firebaseui')
+      const firebaseui = require('firebaseui')
       const ui =
         firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth)
 
