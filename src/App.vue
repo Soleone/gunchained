@@ -4,11 +4,9 @@
       <div class="d-flex align-center">
         <v-img
           alt="Gods Unchained Logo"
-          class="shrink mr-2"
-          contain
+          class="mr-2"
           src="https://godsunchained.com/assets/images/internal-logos/logo--gods-unchained-icon.webp"
-          transition="scale-transition"
-          width="40"
+          width="32"
         />
         <h3>Gunchained</h3>
       </div>
@@ -40,6 +38,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import firebase from 'firebase/app'
+import User from '@/models/user'
 
 export default {
   name: 'App',
@@ -47,9 +46,11 @@ export default {
     ...mapState(['user']),
     ...mapGetters(['userName'])
   },
-  mounted() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+  created() {
+    console.log('Loading App component')
+    firebase.auth().onAuthStateChanged(authUser => {
+      if (authUser) {
+        const user = User.fromAuthHash(authUser)
         this.$store.dispatch('setUser', user)
       }
     })
@@ -59,7 +60,10 @@ export default {
       firebase
         .auth()
         .signOut()
-        .then(() => this.$store.dispatch('setUser', null))
+        .then(() => {
+          this.$store.dispatch('setUser', null)
+          this.$router.push({ path: '/' })
+        })
     },
     visitPlayer() {
       this.$router.push({ name: 'Player' })

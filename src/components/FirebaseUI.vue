@@ -3,7 +3,7 @@
     <v-row>
       <v-spacer></v-spacer>
       <v-row cols="4">
-        <v-card class="mt-8">
+        <v-card class="mt-8" v-show="uiShown">
           <v-card-title class="justify-center">
             Login
           </v-card-title>
@@ -21,35 +21,49 @@
 
 <script>
 import { auth, authProviders } from '@/plugins/firebase'
+import User from '@/models/user'
+import Player from '@/models/player'
 
 export default {
   name: 'FirebaseUI',
-  mounted: function() {
+  data() {
+    return {
+      uiShown: false
+    }
+  },
+  mounted() {
     if (process.browser) {
       const firebaseui = require('firebaseui')
       const ui =
         firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth)
 
-      const extractUser = ({
-        displayName,
-        email,
-        isAnonymous,
-        photoURL,
-        uid
-      }) => {
-        return { displayName, email, isAnonymous, photoURL, uid }
-      }
       const config = {
         signInOptions: authProviders,
-        signInSuccessUrl: '/',
         autoUpgradeAnonymousUsers: true,
+        signInSuccessUrl: '/',
         tosUrl: '/#/terms-of-service',
         privacyPolicyUrl: '/#/privacy-policy',
         callbacks: {
           signInSuccessWithAuthResult: result => {
-            const user = extractUser(result.user)
+            const user = User.fromAuthHash(result.user)
+            console.log(user)
             this.$store.dispatch('setUser', user)
-            this.$router.push({ name: 'Home' })
+
+            Player.loadByUid(user.uid).then(player => {
+              if (!player) {
+                Player.createByUid(user.uid)
+              } else {
+                console.log('Found player')
+              }
+
+              this.$router.push({ name: 'Home' })
+            })
+          },
+          uiShown: () => {
+            this.uiShown = true
+          },
+          signInFailure() {
+            console.log('Failed to sign in')
           }
         }
       }
