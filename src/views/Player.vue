@@ -3,7 +3,7 @@
     <v-container class="mt-8">
       <v-row>
         <v-spacer></v-spacer>
-        <v-col cols="3">
+        <v-col cols="12" lg="3">
           <v-card>
             <v-card-title>
               Edit your profile

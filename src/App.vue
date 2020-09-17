@@ -10,7 +10,7 @@
         />
 
         <v-toolbar-title @click="$router.push('/')" class="clickable">
-          Gunchained Arena
+          Gunchained <span class="d-none d-sm-inline">Arena</span>
         </v-toolbar-title>
       </div>
 

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { store } from '@/plugins/firebase'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
+import { store } from '@/plugins/firebase'
+import Player from '@/models/player'
 
 Vue.use(Vuex)
 
@@ -82,6 +83,16 @@ export default new Vuex.Store({
       } else {
         return 'Not logged in'
       }
+    },
+    challenges(state) {
+      const playersWithChallenges = state.players.filter(
+        player => player.challenge && player.challenge.code
+      )
+      return playersWithChallenges.map(player => {
+        let challenge = player.challenge
+        challenge.player = new Player(player)
+        return challenge
+      })
     }
   },
   modules: {}
