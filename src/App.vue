@@ -8,31 +8,35 @@
           src="https://godsunchained.com/assets/images/internal-logos/logo--gods-unchained-icon.webp"
           width="32"
         />
-        <h3>Gunchained Arena</h3>
+
+        <v-toolbar-title @click="$router.push('/')" class="clickable">
+          Gunchained Arena
+        </v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
-      <div v-if="!user">
-        <v-btn to="/login" text rounded small>Login</v-btn>
-      </div>
 
-      <div v-if="user" class="d-flex align-right">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-chip pill @click="visitPlayer()" v-bind="attrs" v-on="on">
-              <v-avatar left v-if="user.photoURL">
-                <img :src="user.photoURL" alt="Avatar image" />
-              </v-avatar>
-              {{ userName }}
-            </v-chip>
-          </template>
-          <span>Edit profile</span>
-        </v-tooltip>
+      <v-toolbar-items>
+        <v-btn to="/login" text rounded small v-if="!user">Login</v-btn>
 
-        <div class="vcenter">
-          <v-btn @click="logout" text rounded small>Logout</v-btn>
+        <div v-if="user" class="d-flex align-center">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-chip pill @click="visitPlayer()" v-bind="attrs" v-on="on">
+                <v-avatar left v-if="user.photoURL">
+                  <img :src="user.photoURL" alt="Avatar image" />
+                </v-avatar>
+                {{ userName }}
+              </v-chip>
+            </template>
+            <span>Edit profile</span>
+          </v-tooltip>
+
+          <div>
+            <v-btn @click="logout" text rounded small>Logout</v-btn>
+          </div>
         </div>
-      </div>
+      </v-toolbar-items>
     </v-app-bar>
 
     <v-main>
@@ -83,9 +87,7 @@ export default {
 </script>
 
 <style>
-.vcenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.clickable {
+  cursor: pointer;
 }
 </style>
