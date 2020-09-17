@@ -4,7 +4,7 @@ export default class Player {
   constructor(player) {
     this.guName = player.guName
     this.description = player.description
-    this.ranked = player.ranked
+    this.rank = player.rank
   }
 
   static async loadByUid(uid) {

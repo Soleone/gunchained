@@ -8,7 +8,7 @@
           src="https://godsunchained.com/assets/images/internal-logos/logo--gods-unchained-icon.webp"
           width="32"
         />
-        <h3>Gunchained</h3>
+        <h3>Gunchained Arena</h3>
       </div>
 
       <v-spacer></v-spacer>
@@ -17,12 +17,18 @@
       </div>
 
       <div v-if="user" class="d-flex align-right">
-        <v-chip pill @click="visitPlayer()">
-          <v-avatar left v-if="user.photoURL">
-            <img :src="user.photoURL" alt="Avatar image" />
-          </v-avatar>
-          {{ userName }}
-        </v-chip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-chip pill @click="visitPlayer()" v-bind="attrs" v-on="on">
+              <v-avatar left v-if="user.photoURL">
+                <img :src="user.photoURL" alt="Avatar image" />
+              </v-avatar>
+              {{ userName }}
+            </v-chip>
+          </template>
+          <span>Edit profile</span>
+        </v-tooltip>
+
         <div class="vcenter">
           <v-btn @click="logout" text rounded small>Logout</v-btn>
         </div>
@@ -31,6 +37,9 @@
 
     <v-main>
       <router-view></router-view>
+      <v-snackbar v-model="status.visible" timeout="2000" :color="status.color">
+        {{ status.message }}
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
@@ -43,13 +52,14 @@ import User from '@/models/user'
 export default {
   name: 'App',
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'status']),
     ...mapGetters(['userName'])
   },
   created() {
     console.log('Loading App component')
     firebase.auth().onAuthStateChanged(authUser => {
       if (authUser) {
+        console.log('onAuthStateChanged authuser')
         const user = User.fromAuthHash(authUser)
         this.$store.dispatch('setUser', user)
       }

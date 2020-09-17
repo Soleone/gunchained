@@ -52,10 +52,11 @@ export default {
             Player.loadByUid(user.uid).then(player => {
               if (!player) {
                 Player.createByUid(user.uid)
-              } else {
-                console.log('Found player')
+                this.$store.dispatch(
+                  'setStatus',
+                  'Created new account. Welcome!'
+                )
               }
-
               this.$router.push({ name: 'Home' })
             })
           },
@@ -63,7 +64,7 @@ export default {
             this.uiShown = true
           },
           signInFailure() {
-            console.log('Failed to sign in')
+            this.$store.dispatch('setStatus', 'Failed to sign in', 'error')
           }
         }
       }

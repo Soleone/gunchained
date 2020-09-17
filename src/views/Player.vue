@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="mt-8">
       <v-row>
         <v-spacer></v-spacer>
         <v-col cols="3">
@@ -55,32 +55,22 @@
         <v-spacer></v-spacer>
       </v-row>
     </v-container>
-
-    <v-snackbar v-model="showStatus" timeout="2000" :color="statusColor">
-      {{ statusMessage }}
-    </v-snackbar>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { store } from '@/plugins/firebase'
 
 export default {
   name: 'Player',
   created() {
-    console.log('Loading Player component')
+    console.log('[Player] Created')
+  },
+  mounted() {
+    console.log('[Player] Mounted')
   },
   data() {
     return {
-      showStatus: false,
-      statusMessage: null,
-      statusColor: 'success',
-      player: {
-        guName: null,
-        description: null,
-        rank: null
-      },
       ranks: [
         'Rusted Bronze ',
         'Purified Bronze ',
@@ -98,41 +88,23 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'player'])
   },
   methods: {
     save() {
       console.log(this.player)
       console.log(this.$firestoreRefs)
-      this.$firestoreRefs.player
-        .update(this.player)
-        .then(() => {
-          this.setStatus('Updated profile.')
-        })
-        .catch(() => {
-          this.setStatus('Failed to update profile!', 'error')
-        })
-    },
-    setStatus(message, color = 'success') {
-      this.statusMessage = message
-      this.statusColor = color
-      this.showStatus = true
+      this.$store.dispatch('updatePlayer')
     }
   },
   watch: {
     user: {
       immediate: true,
       handler() {
-        console.log('Loaded user from vuex')
-        console.log(this.user)
-        store
-          .collection('players')
-          .doc(this.user.uid)
-          .get()
-          .then(doc => {
-            console.log(doc)
-            this.$bind('player', doc.ref)
-          })
+        if (!this.user) return
+
+        console.log('[Player] User was set. Trying to bind Player ref')
+        this.$store.dispatch('bindPlayerRef')
       }
     }
   }

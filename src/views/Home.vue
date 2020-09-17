@@ -1,14 +1,14 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col> </v-col>
-    </v-row>
-  </v-container>
+  <ChallengeList />
 </template>
 
 <script>
-// @ is an alias to /src
+import ChallengeList from '@/components/ChallengeList.vue'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    ChallengeList
+  }
 }
 </script>
