@@ -4,12 +4,6 @@
       <v-spacer></v-spacer>
       <v-row cols="4">
         <v-card class="mt-8" v-show="uiShown">
-          <v-card-title class="justify-center">
-            Login
-          </v-card-title>
-          <v-card-subtitle class="text-center">
-            Choose your preferred authentication method.
-          </v-card-subtitle>
           <v-card-actions>
             <div id="firebaseui-auth-container" />
           </v-card-actions>
@@ -52,10 +46,9 @@ export default {
             Player.loadByUid(user.uid).then(player => {
               if (!player) {
                 Player.createByUid(user.uid)
-                this.$store.dispatch(
-                  'setStatus',
-                  'Created new account. Welcome!'
-                )
+                this.$store.dispatch('setStatus', {
+                  message: 'Created new account. Welcome!'
+                })
               }
               this.$router.push({ name: 'Home' })
             })
@@ -64,7 +57,10 @@ export default {
             this.uiShown = true
           },
           signInFailure() {
-            this.$store.dispatch('setStatus', 'Failed to sign in', 'error')
+            this.$store.dispatch('setStatus', {
+              message: 'Failed to sign in',
+              color: 'error'
+            })
           }
         }
       }

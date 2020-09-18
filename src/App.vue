@@ -12,6 +12,14 @@
         <v-toolbar-title @click="$router.push('/')" class="clickable">
           Gunchained <span class="d-none d-sm-inline">Arena</span>
         </v-toolbar-title>
+
+        <div
+          class="d-none d-sm-inline ml-1 text-caption clickable"
+          @click="visitChangelog()"
+          style="margin-top: 4px"
+        >
+          v{{ version }}
+        </div>
       </div>
 
       <v-spacer></v-spacer>
@@ -69,6 +77,11 @@ export default {
       }
     })
   },
+  data() {
+    return {
+      version: '0.1.0'
+    }
+  },
   methods: {
     logout() {
       firebase
@@ -81,6 +94,13 @@ export default {
     },
     visitPlayer() {
       this.$router.push({ name: 'Player' })
+    },
+    visitChangelog() {
+      this.$store.dispatch('setStatus', {
+        message:
+          'This will soon lead to a changelog to show the differences between versions.',
+        color: 'default'
+      })
     }
   }
 }

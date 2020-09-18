@@ -41,26 +41,27 @@ export default new Vuex.Store({
     updatePlayer({ dispatch, state }) {
       // create a copy that excludes id
       const player = { ...state.player }
-      console.log('updatePlayer')
-      console.log(player)
-      console.log(state.user)
-      console.log(state)
       return store
         .collection('players')
         .doc(state.user.uid)
         .set(player)
         .then(() => {
-          dispatch('setStatus', 'Profile updated.')
+          dispatch('setStatus', { message: 'Profile updated.' })
         })
         .catch(() => {
-          dispatch('setStatus', 'Failed to update profile!', 'error')
+          dispatch('setStatus', {
+            message: 'Failed to update profile!',
+            color: 'error'
+          })
         })
     },
     createChallenge({ commit }, challenge) {
       commit('createChallenge', challenge)
     },
-    setStatus({ commit }, message, color) {
+    setStatus({ commit }, { message, color }) {
+      console.log(color)
       if (color === undefined) color = 'success'
+      console.log(color)
       commit('setStatus', { message, color })
     },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {

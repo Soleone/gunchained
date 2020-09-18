@@ -5,6 +5,7 @@ export default class Player {
     this.guName = player.guName
     this.description = player.description
     this.rank = player.rank
+    this.challenge = player.challenge || {}
   }
 
   static async loadByUid(uid) {
@@ -24,7 +25,8 @@ export default class Player {
       .set({
         guName: null,
         description: null,
-        rank: null
+        rank: null,
+        challenge: {}
       })
       .then(() => {
         console.log('Created new player with uid ', uid)
