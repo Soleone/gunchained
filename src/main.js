@@ -6,8 +6,12 @@ import { firestorePlugin } from 'vuefire'
 import vuetify from './plugins/vuetify'
 
 Vue.use(firestorePlugin)
-
 Vue.config.productionTip = false
+
+// DayJS
+import dayjs from 'dayjs'
+import RelativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(RelativeTime)
 
 new Vue({
   router,

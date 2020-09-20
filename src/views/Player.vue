@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Player',
@@ -138,13 +138,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'player'])
+    ...mapState(['user']),
+    ...mapGetters({
+      player: 'playerObject'
+    })
   },
   methods: {
     save() {
       console.log(this.player)
       console.log(this.$firestoreRefs)
-      this.$store.dispatch('updatePlayer')
+      this.$store.dispatch('updatePlayer', this.player)
+      this.$router.push('/')
     }
   },
   watch: {

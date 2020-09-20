@@ -24,25 +24,30 @@
 
       <v-spacer></v-spacer>
 
-      <v-toolbar-items>
-        <v-btn to="/login" text rounded small v-if="!user">Login</v-btn>
+      <v-toolbar-items class="d-flex align-center">
+        <div v-if="!user">
+          <Tooltip tooltip="Log in">
+            <v-btn to="/login" text fab small class="text--secondary">
+              <v-icon>mdi-login</v-icon>
+            </v-btn>
+          </Tooltip>
+        </div>
 
-        <div v-if="user" class="d-flex align-center">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-chip pill @click="visitPlayer()" v-bind="attrs" v-on="on">
-                <v-avatar left v-if="user.photoURL">
-                  <img :src="user.photoURL" alt="Avatar image" />
-                </v-avatar>
-                {{ userName }}
-              </v-chip>
-            </template>
-            <span>Edit profile</span>
-          </v-tooltip>
+        <div v-if="user">
+          <Tooltip :visible="!!user" tooltip="Edit profile">
+            <v-chip pill @click="visitPlayer()">
+              <v-avatar left v-if="user.photoURL">
+                <img :src="user.photoURL" alt="Avatar image" />
+              </v-avatar>
+              {{ userName }}
+            </v-chip>
+          </Tooltip>
 
-          <div>
-            <v-btn @click="logout" text rounded small>Logout</v-btn>
-          </div>
+          <Tooltip tooltip="Log out">
+            <v-btn @click="logout" text fab small class="text--secondary">
+              <v-icon>mdi-logout</v-icon>
+            </v-btn>
+          </Tooltip>
         </div>
       </v-toolbar-items>
     </v-app-bar>
@@ -60,9 +65,13 @@
 import { mapState, mapGetters } from 'vuex'
 import firebase from 'firebase/app'
 import User from '@/models/user'
+import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 
 export default {
   name: 'App',
+  components: {
+    Tooltip
+  },
   computed: {
     ...mapState(['user', 'status']),
     ...mapGetters(['userName'])

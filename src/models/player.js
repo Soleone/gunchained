@@ -1,11 +1,12 @@
 import { store } from '@/plugins/firebase'
+import Challenge from '@/models/challenge'
 
 export default class Player {
   constructor(player) {
     this.guName = player.guName
     this.description = player.description
     this.rank = player.rank
-    this.challenge = player.challenge || {}
+    this.challenge = Challenge.fromFire(player.challenge || {})
   }
 
   static async loadByUid(uid) {
@@ -26,7 +27,11 @@ export default class Player {
         guName: null,
         description: null,
         rank: null,
-        challenge: {}
+        challenge: {
+          code: null,
+          description: null,
+          availableSince: 0
+        }
       })
       .then(() => {
         console.log('Created new player with uid ', uid)

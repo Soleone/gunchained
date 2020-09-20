@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row v-for="challenge in challenges" :key="challenge.player.uid">
+    <v-row v-for="challenge in availableChallenges" :key="challenge.player.uid">
       <v-spacer></v-spacer>
       <v-col cols="12" lg="4">
         <v-card>
@@ -8,7 +8,25 @@
             {{ challenge.code }}
           </v-card-title>
           <v-card-subtitle>
+            {{ challenge.availableSinceString() }}
+          </v-card-subtitle>
+          <v-card-text>
             {{ challenge.description }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+    <v-row v-if="!availableChallenges.length">
+      <v-spacer></v-spacer>
+      <v-col cols="12" lg="4">
+        <v-card>
+          <v-card-title>
+            No challenges currently available.
+          </v-card-title>
+          <v-card-subtitle>
+            Be the first, you can edit your profile to customize your challenge
+            and set yourself available.
           </v-card-subtitle>
         </v-card>
       </v-col>
@@ -27,15 +45,12 @@ export default {
   },
   computed: {
     ...mapState(['user', 'players']),
-    ...mapGetters(['challenges'])
+    ...mapGetters(['availableChallenges'])
   },
   watch: {
     user: {
       immediate: true,
       handler() {
-        if (!this.user) return
-
-        console.log('[ChallengeList] User is set')
         this.$store.dispatch('bindPlayersRef')
       }
     }

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import { store } from '@/plugins/firebase'
 import Player from '@/models/player'
+import Challenge from '@/models/challenge'
 
 Vue.use(Vuex)
 
@@ -38,13 +39,15 @@ export default new Vuex.Store({
     setUser({ commit }, user) {
       commit('setUser', user)
     },
-    updatePlayer({ dispatch, state }) {
+    updatePlayer({ dispatch, state }, player) {
       // create a copy that excludes id
-      const player = { ...state.player }
+      const newPlayer = { ...player }
+      newPlayer.challenge = player.challenge.toFire()
+      console.log('new player: ', newPlayer)
       return store
         .collection('players')
         .doc(state.user.uid)
-        .set(player)
+        .set(newPlayer)
         .then(() => {
           dispatch('setStatus', { message: 'Profile updated.' })
         })
@@ -59,15 +62,10 @@ export default new Vuex.Store({
       commit('createChallenge', challenge)
     },
     setStatus({ commit }, { message, color }) {
-      console.log(color)
       if (color === undefined) color = 'success'
-      console.log(color)
       commit('setStatus', { message, color })
     },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {
-      console.log('bindPlayerRef')
-      console.log(state)
-      console.log(state.user)
       return bindFirestoreRef(
         'player',
         store.collection('players').doc(state.user.uid)
@@ -85,15 +83,17 @@ export default new Vuex.Store({
         return 'Not logged in'
       }
     },
-    challenges(state) {
-      const playersWithChallenges = state.players.filter(
-        player => player.challenge && player.challenge.code
-      )
-      return playersWithChallenges.map(player => {
-        let challenge = player.challenge
-        challenge.player = new Player(player)
-        return challenge
-      })
+    playerObject(state) {
+      return new Player(state.player)
+    },
+    availableChallenges(state) {
+      return state.players
+        .filter(player => player.challenge.availableSince)
+        .map(player => {
+          let challenge = Challenge.fromFire(player.challenge)
+          challenge.player = new Player(player)
+          return challenge
+        })
     }
   },
   modules: {}
