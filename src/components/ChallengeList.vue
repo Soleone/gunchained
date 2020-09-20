@@ -1,9 +1,5 @@
 <template>
-  <v-container
-    v-touch="{
-      down: () => reload()
-    }"
-  >
+  <v-container>
     <v-row>
       <v-spacer></v-spacer>
       <v-col cols="12" :lg="columnSizeLg" class="d-flex justify-center">
