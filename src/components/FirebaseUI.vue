@@ -3,11 +3,7 @@
     <v-row>
       <v-spacer></v-spacer>
       <v-row cols="4">
-        <v-card class="mt-8" v-show="uiShown">
-          <v-card-actions>
-            <div id="firebaseui-auth-container" />
-          </v-card-actions>
-        </v-card>
+        <div id="firebaseui-auth-container" class="mt-8" />
       </v-row>
     </v-row>
   </v-container>
