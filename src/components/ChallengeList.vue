@@ -1,17 +1,33 @@
 <template>
-  <v-container>
+  <v-container
+    v-touch="{
+      down: () => reload()
+    }"
+  >
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-col cols="12" :lg="columnSizeLg" class="d-flex justify-center">
+        <v-btn rounded @click="reload()">
+          <v-icon left>mdi-reload</v-icon> Reload
+        </v-btn>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
     <v-row v-for="challenge in availableChallenges" :key="challenge.player.uid">
       <v-spacer></v-spacer>
-      <v-col cols="12" lg="4">
+      <v-col cols="12" :lg="columnSizeLg">
         <v-card>
           <v-card-title>
             {{ challenge.code }}
           </v-card-title>
-          <v-card-subtitle>
-            {{ challenge.availableSinceString() }}
+          <v-card-subtitle class="align-baseline">
+            {{ challenge.description }}
           </v-card-subtitle>
           <v-card-text>
-            {{ challenge.description }}
+            <v-chip label color="success">
+              <v-icon small class="mr-1">mdi-clock-check-outline</v-icon>
+              <span>{{ challenge.availableSinceString() }}</span>
+            </v-chip>
           </v-card-text>
         </v-card>
       </v-col>
@@ -19,7 +35,7 @@
     </v-row>
     <v-row v-if="!availableChallenges.length">
       <v-spacer></v-spacer>
-      <v-col cols="12" lg="4">
+      <v-col cols="12" :lg="columnSizeLg">
         <v-card>
           <v-card-title>
             No challenges currently available.
@@ -36,16 +52,27 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ChallengeList',
+  data() {
+    return {
+      columnSizeLg: 6
+    }
+  },
   created() {
-    console.log('Loading ChallengeList component')
+    console.log('[ChallengeList] Component created')
   },
   computed: {
     ...mapState(['user', 'players']),
-    ...mapGetters(['availableChallenges'])
+    ...mapGetters({
+      availableChallenges: 'availableChallenges',
+      player: 'playerObject'
+    })
+  },
+  methods: {
+    ...mapActions(['reload'])
   },
   watch: {
     user: {

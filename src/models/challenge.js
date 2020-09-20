@@ -13,7 +13,11 @@ export default class Challenge {
     if (challenge.availableSince === 0) {
       newChallenge.availableSince = null
     } else {
-      newChallenge.availableSince = dayjs.unix(challenge.availableSince)
+      let availableSince = challenge.availableSince
+      if (!(challenge.availableSince instanceof dayjs)) {
+        availableSince = dayjs.unix(challenge.availableSince)
+      }
+      newChallenge.availableSince = availableSince
     }
 
     return new Challenge(newChallenge)

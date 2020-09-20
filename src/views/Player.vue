@@ -3,11 +3,9 @@
     <v-container class="mt-8">
       <v-row>
         <v-spacer></v-spacer>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" :lg="columnSizeLg">
           <v-card height="500">
-            <v-card-title>
-              My profile
-            </v-card-title>
+            <v-card-title>My profile</v-card-title>
             <v-container>
               <v-row>
                 <v-col>
@@ -17,8 +15,8 @@
                     v-model="player.guName"
                     :outlined="!!player.guName"
                     :filled="!player.guName"
-                  >
-                  </v-text-field>
+                    @change="updatePlayer()"
+                  ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
@@ -31,8 +29,8 @@
                     :outlined="!!player.description"
                     :filled="!player.description"
                     no-resize
-                  >
-                  </v-textarea>
+                    @change="updatePlayer()"
+                  ></v-textarea>
                 </v-col>
               </v-row>
               <v-row>
@@ -44,18 +42,16 @@
                     :outlined="!!player.rank"
                     :filled="!player.rank"
                     prepend-icon="mdi-ladder"
-                  >
-                  </v-select>
+                    @change="updatePlayer()"
+                  ></v-select>
                 </v-col>
               </v-row>
             </v-container>
           </v-card>
         </v-col>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" :lg="columnSizeLg">
           <v-card height="500">
-            <v-card-title>
-              My challenge
-            </v-card-title>
+            <v-card-title>My challenge</v-card-title>
 
             <v-container>
               <v-row>
@@ -66,8 +62,11 @@
                     v-model="player.challenge.code"
                     :outlined="!!player.challenge.code"
                     :filled="!player.challenge.code"
-                  >
-                  </v-text-field>
+                    :rules="[rules.code.length]"
+                    minlength="3"
+                    maxlength="40"
+                    @change="updatePlayer()"
+                  ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
@@ -80,8 +79,8 @@
                     :outlined="!!player.challenge.description"
                     :filled="!player.challenge.description"
                     no-resize
-                  >
-                  </v-textarea>
+                    @change="updatePlayer()"
+                  ></v-textarea>
                 </v-col>
               </v-row>
               <v-row>
@@ -91,6 +90,7 @@
                     prepend-icon="mdi-calendar-check"
                     label="Available"
                     color="success"
+                    @change="updatePlayer()"
                   ></v-switch>
                 </v-col>
               </v-row>
@@ -98,11 +98,6 @@
           </v-card>
         </v-col>
         <v-spacer></v-spacer>
-      </v-row>
-      <v-row>
-        <v-col class="text-center">
-          <v-btn @click="save" class="success">Save</v-btn>
-        </v-col>
       </v-row>
     </v-container>
   </v-form>
@@ -121,6 +116,7 @@ export default {
   },
   data() {
     return {
+      columnSizeLg: 5,
       ranks: [
         'Rusted Bronze ',
         'Purified Bronze ',
@@ -134,7 +130,18 @@ export default {
         'Solar Gold ',
         'Ethereal Diamond ',
         'Mythic '
-      ]
+      ],
+      rules: {
+        code: {
+          length: value => {
+            return (
+              value == '' ||
+              (value && value.length >= 3 && value.length <= 40) ||
+              'Needs to be between 3 and 40 characters.'
+            )
+          }
+        }
+      }
     }
   },
   computed: {
@@ -144,11 +151,8 @@ export default {
     })
   },
   methods: {
-    save() {
-      console.log(this.player)
-      console.log(this.$firestoreRefs)
+    updatePlayer() {
       this.$store.dispatch('updatePlayer', this.player)
-      this.$router.push('/')
     }
   },
   watch: {

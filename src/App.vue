@@ -3,14 +3,16 @@
     <v-app-bar app>
       <div class="d-flex align-center">
         <v-img
+          @click="$router.push('/')"
           alt="Gods Unchained Logo"
-          class="mr-2"
-          src="https://godsunchained.com/assets/images/internal-logos/logo--gods-unchained-icon.webp"
+          class="mr-2 clickable"
+          src="@/assets/images/gods-unchained-logo-256.png"
           width="32"
         />
 
         <v-toolbar-title @click="$router.push('/')" class="clickable">
-          Gunchained <span class="d-none d-sm-inline">Arena</span>
+          <span class="d-none d-sm-inline">Gunchained Arena</span>
+          <span class="d-inline d-sm-none">Gun</span>
         </v-toolbar-title>
 
         <div
@@ -33,7 +35,15 @@
           </Tooltip>
         </div>
 
-        <div v-if="user">
+        <div v-if="user" class="d-flex align-center ">
+          <v-switch
+            v-model="player.challenge.available"
+            color="success"
+            label="Available"
+            class="force-height mr-2"
+            @change="updateAvailability()"
+          ></v-switch>
+
           <Tooltip :visible="!!user" tooltip="Edit profile">
             <v-chip pill @click="visitPlayer()">
               <v-avatar left v-if="user.photoURL">
@@ -54,9 +64,12 @@
 
     <v-main>
       <router-view></router-view>
-      <v-snackbar v-model="status.visible" timeout="2000" :color="status.color">
-        {{ status.message }}
-      </v-snackbar>
+      <v-snackbar
+        v-model="status.visible"
+        timeout="2000"
+        :color="status.color"
+        >{{ status.message }}</v-snackbar
+      >
     </v-main>
   </v-app>
 </template>
@@ -74,13 +87,16 @@ export default {
   },
   computed: {
     ...mapState(['user', 'status']),
-    ...mapGetters(['userName'])
+    ...mapGetters({
+      userName: 'userName',
+      player: 'playerObject'
+    })
   },
   created() {
-    console.log('Loading App component')
+    console.log('[App] Loading App component')
     firebase.auth().onAuthStateChanged(authUser => {
       if (authUser) {
-        console.log('onAuthStateChanged authuser')
+        console.log('[App] onAuthStateChanged authuser')
         const user = User.fromAuthHash(authUser)
         this.$store.dispatch('setUser', user)
       }
@@ -101,6 +117,9 @@ export default {
           this.$router.push({ path: '/' })
         })
     },
+    updateAvailability() {
+      this.$store.dispatch('updateAvailability', this.player)
+    },
     visitPlayer() {
       this.$router.push({ name: 'Player' })
     },
@@ -111,6 +130,17 @@ export default {
         color: 'default'
       })
     }
+  },
+  watch: {
+    user: {
+      immediate: true,
+      handler() {
+        if (!this.user) return
+
+        console.log('[Player] User was set. Trying to bind Player ref')
+        this.$store.dispatch('bindPlayerRef')
+      }
+    }
   }
 }
 </script>
@@ -118,5 +148,9 @@ export default {
 <style>
 .clickable {
   cursor: pointer;
+}
+
+.force-height {
+  height: 22px;
 }
 </style>

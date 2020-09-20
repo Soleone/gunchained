@@ -16,7 +16,8 @@ export default new Vuex.Store({
       visible: false,
       message: null,
       color: 'success'
-    }
+    },
+    reloadKey: 0
   },
   mutations: {
     ...vuexfireMutations,
@@ -33,6 +34,10 @@ export default new Vuex.Store({
       state.status.message = message
       state.status.color = color
       state.status.visible = true
+    },
+    reload(state) {
+      console.log('Reloading...')
+      state.reloadKey += 1
     }
   },
   actions: {
@@ -49,11 +54,27 @@ export default new Vuex.Store({
         .doc(state.user.uid)
         .set(newPlayer)
         .then(() => {
-          dispatch('setStatus', { message: 'Profile updated.' })
+          dispatch('setStatus', {
+            message: 'Profile updated.'
+          })
         })
         .catch(() => {
           dispatch('setStatus', {
             message: 'Failed to update profile!',
+            color: 'error'
+          })
+        })
+    },
+    updateAvailability({ dispatch, state }, player) {
+      const newPlayer = { challenge: player.challenge.toFire() }
+      console.log('new player: ', newPlayer)
+      return store
+        .collection('players')
+        .doc(state.user.uid)
+        .update(newPlayer)
+        .catch(() => {
+          dispatch('setStatus', {
+            message: 'Failed to update availability!',
             color: 'error'
           })
         })
@@ -65,14 +86,25 @@ export default new Vuex.Store({
       if (color === undefined) color = 'success'
       commit('setStatus', { message, color })
     },
+    reload({ commit }) {
+      commit('reload')
+    },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {
+      console.log('[Vuex] Binding player ref from Firestore')
       return bindFirestoreRef(
         'player',
-        store.collection('players').doc(state.user.uid)
+        store.collection('players').doc(state.user.uid),
+        { reset: false }
       )
     }),
     bindPlayersRef: firestoreAction(({ bindFirestoreRef }) => {
-      return bindFirestoreRef('players', store.collection('players'))
+      return bindFirestoreRef(
+        'players',
+        store.collection('players').orderBy('challenge.availableSince', 'desc'),
+        {
+          reset: false
+        }
+      )
     })
   },
   getters: {
