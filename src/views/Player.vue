@@ -15,7 +15,6 @@
                     v-model="player.guName"
                     :outlined="!!player.guName"
                     :filled="!player.guName"
-                    @change="updatePlayer()"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -29,7 +28,6 @@
                     :outlined="!!player.description"
                     :filled="!player.description"
                     no-resize
-                    @change="updatePlayer()"
                   ></v-textarea>
                 </v-col>
               </v-row>
@@ -42,7 +40,6 @@
                     :outlined="!!player.rank"
                     :filled="!player.rank"
                     prepend-icon="mdi-ladder"
-                    @change="updatePlayer()"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -65,7 +62,6 @@
                     :rules="[rules.code.length]"
                     minlength="3"
                     maxlength="40"
-                    @change="updatePlayer()"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -79,23 +75,18 @@
                     :outlined="!!player.challenge.description"
                     :filled="!player.challenge.description"
                     no-resize
-                    @change="updatePlayer()"
                   ></v-textarea>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
-                  <v-switch
-                    v-model="player.challenge.available"
-                    prepend-icon="mdi-calendar-check"
-                    label="Available"
-                    color="success"
-                    @change="updatePlayer()"
-                  ></v-switch>
                 </v-col>
               </v-row>
             </v-container>
           </v-card>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-row>
+        <v-spacer></v-spacer>
+        <v-col class="d-flex justify-center">
+          <v-btn @click="updatePlayer()" color="success">Save</v-btn>
         </v-col>
         <v-spacer></v-spacer>
       </v-row>
@@ -153,6 +144,7 @@ export default {
   methods: {
     updatePlayer() {
       this.$store.dispatch('updatePlayer', this.player)
+      this.$router.push('/')
     }
   },
   watch: {
