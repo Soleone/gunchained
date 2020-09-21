@@ -33,3 +33,4 @@ Initial launch version
 - Reload button (implemented, but removed again because not needed)
 - Bugfix: redirect issue history mode
 - Bugfix: null player bug after initial signup.
+- Google Analytics anonymous usage tracking

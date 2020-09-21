@@ -4,7 +4,16 @@ import router from './router'
 import store from './store'
 import { firestorePlugin } from 'vuefire'
 import vuetify from './plugins/vuetify'
+import VueGtag from 'vue-gtag'
+import { config } from '@/../firebase.config.js'
 
+Vue.use(
+  VueGtag,
+  {
+    config: { id: config.measurementId }
+  },
+  router
+)
 Vue.use(firestorePlugin)
 Vue.config.productionTip = false
 

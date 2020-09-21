@@ -45,6 +45,7 @@ export default {
                 this.$store.dispatch('setStatus', {
                   message: 'Created new account. Welcome!'
                 })
+                this.$gtag.event('playerCreated')
               }
               this.$router.push('/')
             })
@@ -57,6 +58,7 @@ export default {
               message: 'Failed to sign in',
               color: 'error'
             })
+            this.$gtag.event('signInFailure')
           }
         }
       }

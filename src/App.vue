@@ -136,6 +136,9 @@ export default {
         })
     },
     updateAvailability() {
+      this.$gtag.event('updateAvailability', {
+        availability: this.player.challenge.available
+      })
       this.$store.dispatch('updateAvailability', this.player)
     },
     visitPlayer() {
