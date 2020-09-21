@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Prevent setting to available when challenge code is empty
+- Display info alert in profile when code is still empty
+
 ## 0.1.0
 
 Initial launch version

@@ -34,6 +34,7 @@
             label="Available"
             class="force-height mr-2"
             @change="updateAvailability()"
+            :disabled="player.challenge.code.toString() == ''"
           ></v-switch>
 
           <v-chip :visible="!!user" pill outlined @click="visitPlayer()">
