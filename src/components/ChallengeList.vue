@@ -40,7 +40,7 @@
       <v-col cols="12" :lg="columnSizeLg">
         <v-card>
           <v-card-title>
-            No challenges currently available.
+            No challenges currently live.
           </v-card-title>
           <v-card-subtitle>
             Be the first, you can edit your profile to customize your challenge

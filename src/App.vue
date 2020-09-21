@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar color="#263238" dark app>
-      <div class="d-flex align-center">
+      <div class="d-flex align-center px-0">
         <v-img
           @click="$router.push('/')"
           alt="Gods Unchained Logo"
@@ -12,7 +12,7 @@
 
         <v-toolbar-title @click="$router.push('/')" class="clickable">
           <span class="d-none d-sm-inline">Gunchained Arena</span>
-          <span class="d-inline d-sm-none">Gun</span>
+          <span class="d-inline d-sm-none">GU</span>
         </v-toolbar-title>
       </div>
       <v-spacer></v-spacer>
@@ -71,14 +71,14 @@
           Version {{ version }}
         </FooterBtn>
       </Tooltip>
-      <span class="mx-2">|</span>
+      <span class="mx-0 mx-sm-2">|</span>
       <FooterBtn
         href="https://github.com/Soleone/gunchained/issues"
         target="github"
       >
         Submit feedback
       </FooterBtn>
-      <span class="mx-2">|</span>
+      <span class="mx-0 mx-sm-2">|</span>
       <FooterBtn href="https://github.com/Soleone/gunchained" target="github">
         Open source
       </FooterBtn>
