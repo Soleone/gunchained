@@ -1,5 +1,5 @@
 <template>
-  <v-tooltip :bottom="bottom" v-if="visible">
+  <v-tooltip :bottom="bottom" :top="top" v-if="visible">
     <template v-slot:activator="{ on, attrs }">
       <span v-bind="attrs" v-on="on">
         <slot></slot>
@@ -19,7 +19,11 @@ export default {
     },
     bottom: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    top: {
+      type: Boolean,
+      default: false
     },
     visible: {
       type: Boolean,

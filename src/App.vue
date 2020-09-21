@@ -19,7 +19,7 @@
 
       <v-toolbar-items class="d-flex align-center">
         <div v-if="!user">
-          <Tooltip tooltip="Sign in">
+          <Tooltip tooltip="Sign in" bottom>
             <v-btn to="/login" text fab small class="text--secondary">
               <v-icon color="white">mdi-login</v-icon>
             </v-btn>
@@ -43,7 +43,7 @@
             Profile
           </v-chip>
 
-          <Tooltip tooltip="Log out">
+          <Tooltip tooltip="Log out" bottom>
             <v-btn @click="logout" text fab small class="text--secondary">
               <v-icon color="white">mdi-logout</v-icon>
             </v-btn>
@@ -63,9 +63,25 @@
       >
     </v-main>
     <v-footer class="d-flex justify-center">
-      <div class="clickable caption" @click="visitChangelog()">
-        version {{ version }}
-      </div>
+      <Tooltip tooltip="See what changed between versions" top>
+        <FooterBtn
+          href="https://github.com/Soleone/gunchained/blob/master/CHANGELOG.md"
+          target="github"
+        >
+          Version {{ version }}
+        </FooterBtn>
+      </Tooltip>
+      <span class="mx-2">|</span>
+      <FooterBtn
+        href="https://github.com/Soleone/gunchained/issues"
+        target="github"
+      >
+        Submit feedback
+      </FooterBtn>
+      <span class="mx-2">|</span>
+      <FooterBtn href="https://github.com/Soleone/gunchained" target="github">
+        Open source
+      </FooterBtn>
     </v-footer>
   </v-app>
 </template>
@@ -75,11 +91,13 @@ import { mapState, mapGetters } from 'vuex'
 import firebase from 'firebase/app'
 import User from '@/models/user'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
+import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
 
 export default {
   name: 'App',
   components: {
-    Tooltip
+    Tooltip,
+    FooterBtn
   },
   computed: {
     ...mapState(['user', 'status']),
@@ -122,13 +140,6 @@ export default {
     },
     visitPlayer() {
       this.$router.push({ name: 'Player' })
-    },
-    visitChangelog() {
-      this.$store.dispatch('setStatus', {
-        message:
-          'This will soon lead to a changelog to show the differences between versions.',
-        color: 'default'
-      })
     }
   },
   watch: {
