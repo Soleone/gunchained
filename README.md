@@ -1,29 +1,24 @@
-# gunchained
+# Gunchained
 
-## Project setup
-```
-yarn install
-```
+## Overview
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+A single page web app that helps Gods Unchained players share their challenge codes to play with each other.
 
-### Compiles and minifies for production
-```
-yarn build
-```
+- Live at https://gunchained.app
+- View [changelog](https://github.com/Soleone/gunchained/blob/master/CHANGELOG.md).
+- Might be extended eventually to have more than the Arena features for challenge codes.
 
-### Run your unit tests
-```
-yarn test:unit
-```
+## Contributing
 
-### Lints and fixes files
-```
-yarn lint
-```
+Contributions and suggestions are always welcome. Please submit new issues at:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+https://github.com/Soleone/gunchained/issues
+
+
+### Project setup
+
+`yarn install`
+
+#### Compiles and hot-reloads for development
+
+`yarn serve`

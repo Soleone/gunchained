@@ -12,8 +12,6 @@ Initial launch version
 - Domain www.gunchained.app
 - Set up apex domain gunchained.app
 - Sort challenges by most recent availableSince
-- Bugfix: Changing availability wipes state or something and requires reload
-- Bugfix: NaN years when setting to available
 - Challenge code validation (3-40)
 - Set favicon
 - Add Save button to profile
@@ -22,6 +20,10 @@ Initial launch version
 - Add Github sign in
 - Add anonymous sign in
 - Put version in footer
+- Open source links in footer
+- Responsive design for Mobile
+- Bugfix: Changing availability wipes state or something and requires reload
+- Bugfix: NaN years when setting to available
 
 ### Implemention details
 
