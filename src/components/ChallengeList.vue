@@ -2,10 +2,16 @@
   <v-container>
     <v-row>
       <v-spacer></v-spacer>
-      <v-col cols="12" :lg="columnSizeLg" class="d-flex justify-center">
-        <v-btn rounded @click="reload()">
-          <v-icon left>mdi-reload</v-icon> Reload
-        </v-btn>
+      <v-col cols="12" :lg="columnSizeLg">
+        <v-alert v-if="!user" type="info">
+          Sign in on the top right
+          <span class="d-none d-sm-inline">
+            to share your challenge code.
+          </span>
+          <span class="d-inline d-sm-none">
+            in to participate.
+          </span>
+        </v-alert>
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
@@ -66,9 +72,6 @@ export default {
       availableChallenges: 'availableChallenges',
       player: 'playerObject'
     })
-  },
-  methods: {
-    ...mapActions(['reload'])
   },
   watch: {
     user: {

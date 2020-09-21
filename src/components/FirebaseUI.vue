@@ -46,7 +46,7 @@ export default {
                   message: 'Created new account. Welcome!'
                 })
               }
-              this.$router.push({ name: 'Home' })
+              this.$router.push('/')
             })
           },
           uiShown: () => {

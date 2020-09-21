@@ -35,6 +35,7 @@ export default class Player {
       })
       .then(() => {
         console.log('Created new player with uid ', uid)
+        location.reload()
       })
   }
 }

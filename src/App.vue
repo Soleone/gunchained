@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar color="#263238" dark app>
       <div class="d-flex align-center">
         <v-img
           @click="$router.push('/')"
@@ -14,29 +14,21 @@
           <span class="d-none d-sm-inline">Gunchained Arena</span>
           <span class="d-inline d-sm-none">Gun</span>
         </v-toolbar-title>
-
-        <div
-          class="d-none d-sm-inline ml-1 text-caption clickable"
-          @click="visitChangelog()"
-          style="margin-top: 4px"
-        >
-          v{{ version }}
-        </div>
       </div>
-
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="d-flex align-center">
         <div v-if="!user">
-          <Tooltip tooltip="Log in">
+          <Tooltip tooltip="Sign in">
             <v-btn to="/login" text fab small class="text--secondary">
-              <v-icon>mdi-login</v-icon>
+              <v-icon color="white">mdi-login</v-icon>
             </v-btn>
           </Tooltip>
         </div>
 
         <div v-if="user" class="d-flex align-center ">
           <v-switch
+            dark
             v-model="player.challenge.available"
             color="success"
             label="Available"
@@ -44,18 +36,16 @@
             @change="updateAvailability()"
           ></v-switch>
 
-          <Tooltip :visible="!!user" tooltip="Edit profile">
-            <v-chip pill @click="visitPlayer()">
-              <v-avatar left v-if="user.photoURL">
-                <img :src="user.photoURL" alt="Avatar image" />
-              </v-avatar>
-              {{ userName }}
-            </v-chip>
-          </Tooltip>
+          <v-chip :visible="!!user" pill outlined @click="visitPlayer()">
+            <v-avatar left v-if="user.photoURL">
+              <img :src="user.photoURL" alt="Avatar image" />
+            </v-avatar>
+            Profile
+          </v-chip>
 
           <Tooltip tooltip="Log out">
             <v-btn @click="logout" text fab small class="text--secondary">
-              <v-icon>mdi-logout</v-icon>
+              <v-icon color="white">mdi-logout</v-icon>
             </v-btn>
           </Tooltip>
         </div>
@@ -64,6 +54,7 @@
 
     <v-main>
       <router-view></router-view>
+
       <v-snackbar
         v-model="status.visible"
         timeout="2000"
@@ -71,6 +62,11 @@
         >{{ status.message }}</v-snackbar
       >
     </v-main>
+    <v-footer class="d-flex justify-center">
+      <div class="clickable caption" @click="visitChangelog()">
+        version {{ version }}
+      </div>
+    </v-footer>
   </v-app>
 </template>
 
@@ -114,6 +110,10 @@ export default {
         .signOut()
         .then(() => {
           this.$store.dispatch('setUser', null)
+          this.$store.dispatch('setStatus', {
+            message: 'Logged out.',
+            color: 'default'
+          })
           this.$router.push({ path: '/' })
         })
     },
