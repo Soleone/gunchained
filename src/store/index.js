@@ -126,6 +126,19 @@ export default new Vuex.Store({
           challenge.player = new Player(player)
           return challenge
         })
+    },
+    isAvailableEnabled(state) {
+      if (!state.player) {
+        return false
+      } else if (!state.player.challenge) {
+        return false
+      } else if (!state.player.challenge.code) {
+        return false
+      } else if (state.player.challenge.code === '') {
+        return false
+      } else {
+        return true
+      }
     }
   },
   modules: {}

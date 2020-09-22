@@ -34,7 +34,7 @@
             label="Available"
             class="force-height mr-2"
             @change="updateAvailability()"
-            :disabled="player.challenge.code.toString() == ''"
+            :disabled="!isAvailableEnabled"
           ></v-switch>
 
           <v-chip :visible="!!user" pill outlined @click="visitPlayer()">
@@ -104,6 +104,7 @@ export default {
     ...mapState(['user', 'status']),
     ...mapGetters({
       userName: 'userName',
+      isAvailableEnabled: 'isAvailableEnabled',
       player: 'playerObject'
     })
   },
@@ -119,7 +120,7 @@ export default {
   },
   data() {
     return {
-      version: '0.1.1'
+      version: '0.1.2'
     }
   },
   methods: {

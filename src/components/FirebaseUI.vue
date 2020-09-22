@@ -47,7 +47,7 @@ export default {
                 })
                 this.$gtag.event('playerCreated')
               }
-              this.$router.push('/')
+              this.$router.push({ name: 'Player' })
             })
           },
           uiShown: () => {

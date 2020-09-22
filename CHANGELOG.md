@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.1.2
+
+- Fix login bug
+- Fix available button disabled state
+- Temporarily disable code form validation
+- Redirect to player profile right away after succesful sign up
+
 ## 0.1.1
 
 - Prevent setting to available when challenge code is empty

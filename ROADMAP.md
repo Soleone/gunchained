@@ -7,14 +7,14 @@ None of this is guaranteed to be worked on by anyone.
 
 ## Milestones
 
-### 0.1.2
-
-- See number of online users (recently logged in)
-
 ### 0.1.3
 
+- Bugfix: Re-enabled and fix form code validation
+- See number of online users (recently logged in)
+- Allow status message to be displayed (e.g. bugs)
 - Notifications when challenges are made available
   - Browser notification API?
+  - [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 
 ### 0.1.4
 
@@ -66,3 +66,5 @@ None of this is guaranteed to be worked on by anyone.
   - Matchup wanted (God, deck type)
   - Decklist
 - Announcement post? Voice?
+- Mark challenge as connected to help other players to try to queue with you anymore
+- Quick copy button
