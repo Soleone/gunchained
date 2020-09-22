@@ -17,7 +17,8 @@ export default new Vuex.Store({
       message: null,
       color: 'success'
     },
-    reloadKey: 0
+    reloadKey: 0,
+    app: {}
   },
   mutations: {
     ...vuexfireMutations,
@@ -48,7 +49,6 @@ export default new Vuex.Store({
       // create a copy that excludes id
       const newPlayer = { ...player }
       newPlayer.challenge = player.challenge.toFire()
-      console.log('new player: ', newPlayer)
       return store
         .collection('players')
         .doc(state.user.uid)
@@ -67,7 +67,6 @@ export default new Vuex.Store({
     },
     updateAvailability({ dispatch, state }, player) {
       const newPlayer = { challenge: player.challenge.toFire() }
-      console.log('new player: ', newPlayer)
       return store
         .collection('players')
         .doc(state.user.uid)
@@ -105,6 +104,12 @@ export default new Vuex.Store({
           reset: false
         }
       )
+    }),
+    bindAppRef: firestoreAction(({ bindFirestoreRef }) => {
+      console.log('[Vuex] Binding app instance from Firestore')
+      return bindFirestoreRef('app', store.collection('app').doc('instance'), {
+        reset: false
+      })
     })
   },
   getters: {
@@ -128,17 +133,10 @@ export default new Vuex.Store({
         })
     },
     isAvailableEnabled(state) {
-      if (!state.player) {
-        return false
-      } else if (!state.player.challenge) {
-        return false
-      } else if (!state.player.challenge.code) {
-        return false
-      } else if (state.player.challenge.code === '') {
-        return false
-      } else {
-        return true
-      }
+      return !!state.player.challenge?.code
+    },
+    appStatus(state) {
+      return state.app.status || {}
     }
   },
   modules: {}

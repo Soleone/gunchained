@@ -54,6 +54,15 @@
     </v-app-bar>
 
     <v-main>
+      <v-alert
+        v-if="appStatus.visible"
+        :color="appStatus.color"
+        :type="appStatus.type"
+        dismissible
+        class="ma-3"
+      >
+        {{ appStatus.message }}
+      </v-alert>
       <router-view></router-view>
 
       <v-snackbar
@@ -105,7 +114,8 @@ export default {
     ...mapGetters({
       userName: 'userName',
       isAvailableEnabled: 'isAvailableEnabled',
-      player: 'playerObject'
+      player: 'playerObject',
+      appStatus: 'appStatus'
     })
   },
   created() {
@@ -153,7 +163,8 @@ export default {
       handler() {
         if (!this.user) return
 
-        console.log('[Player] User was set. Trying to bind Player ref')
+        console.log('[Player] User was set. Trying to bind App and Player ref')
+        this.$store.dispatch('bindAppRef')
         this.$store.dispatch('bindPlayerRef')
       }
     }

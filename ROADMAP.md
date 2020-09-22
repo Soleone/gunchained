@@ -54,6 +54,8 @@ None of this is guaranteed to be worked on by anyone.
 
 ## Ideas
 
+### User facing
+
 - Users can send comments to available challenges' players to ask for status updates
   - Requires inbox for players to receive these comments
 - Player profile fields:
@@ -68,3 +70,7 @@ None of this is guaranteed to be worked on by anyone.
 - Announcement post? Voice?
 - Mark challenge as connected to help other players to try to queue with you anymore
 - Quick copy button
+
+### Implementation details
+
+- Add test suite

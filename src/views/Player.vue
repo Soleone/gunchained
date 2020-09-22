@@ -4,7 +4,7 @@
       <v-row>
         <v-spacer></v-spacer>
         <v-col cols="12" :lg="columnSizeLg * 2">
-          <v-alert v-if="!isAvailableEnabled" type="info">
+          <v-alert v-if="!isAvailableEnabled" type="info" text>
             Once you entered a challenge code you can set yourself to available
             using the switch in the top menu bar.
           </v-alert>
