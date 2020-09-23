@@ -145,7 +145,7 @@ export default {
     console.log('[App] Loading App component')
     firebase.auth().onAuthStateChanged(authUser => {
       if (authUser) {
-        console.log('[App] onAuthStateChanged authuser')
+        console.log('[App] onAuthStateChanged authuser', authUser.uid)
         const user = User.fromAuthHash(authUser)
         this.$store.dispatch('setUser', user)
       }
@@ -153,7 +153,7 @@ export default {
   },
   data() {
     return {
-      version: '0.1.3'
+      version: '0.1.4'
     }
   },
   methods: {

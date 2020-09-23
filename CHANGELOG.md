@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.1.4
+
+- Remove guest login because it causes too many accounts to be created
+
 ### 0.1.3
 
 - See number of currently online users in app bar

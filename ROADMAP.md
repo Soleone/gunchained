@@ -44,7 +44,6 @@ None of this is guaranteed to be worked on by anyone.
 
 ### Low priority
 
-- Fix login screen showing as empty card (polish)
 - Bugfix: 404 hack causes browser warning and wayback machine link (polish)
 
 ## Ideas
