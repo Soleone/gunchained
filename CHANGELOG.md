@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.1.3
+
+- See number of currently online users in app bar
+  - Counts all users witha activity in the last 5 minutes
+  - Updates badge every minute
 - Allow status message to be displayed via system messages (e.g. known issues)
 - Bugfix: Re-enabled and fix form code validation
 

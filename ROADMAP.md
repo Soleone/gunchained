@@ -7,10 +7,6 @@ None of this is guaranteed to be worked on by anyone.
 
 ## Milestones
 
-### 0.1.3
-
-- See number of online users (recently logged in)
-
 ### 0.1.4
 
 - Notifications when challenges are made available

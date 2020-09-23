@@ -14,6 +14,22 @@
           <span class="d-none d-sm-inline">Gunchained Arena</span>
           <span class="d-inline d-sm-none">GU</span>
         </v-toolbar-title>
+
+        <v-chip
+          :disabled="activeUserCount < 2"
+          color="green darken-2"
+          class="ml-sm-4 ml-2"
+        >
+          <v-avatar
+            :left="this.$vuetify.breakpoint.name != 'xs'"
+            class="green darken-3"
+          >
+            {{ activeUserCount }}
+          </v-avatar>
+          <span class="d-none d-sm-inline">
+            {{ pluralizedUserString }} online
+          </span>
+        </v-chip>
       </div>
       <v-spacer></v-spacer>
 
@@ -31,11 +47,14 @@
             dark
             v-model="player.challenge.available"
             color="success"
-            label="Available"
             class="force-height mr-2"
             @change="updateAvailability()"
             :disabled="!isAvailableEnabled"
-          ></v-switch>
+          >
+            <template v-slot:label>
+              <span class="d-none d-sm-inline">Available</span>
+            </template>
+          </v-switch>
 
           <v-chip :visible="!!user" pill outlined @click="visitPlayer()">
             <v-avatar left v-if="user.photoURL">
@@ -110,13 +129,17 @@ export default {
     FooterBtn
   },
   computed: {
-    ...mapState(['user', 'status']),
+    ...mapState(['user', 'app', 'status']),
+    ...mapGetters(['appStatus', 'isAvailableEnabled']),
     ...mapGetters({
-      userName: 'userName',
-      isAvailableEnabled: 'isAvailableEnabled',
-      player: 'playerObject',
-      appStatus: 'appStatus'
-    })
+      player: 'playerObject'
+    }),
+    activeUserCount() {
+      return this.app?.activeUserCount || 0
+    },
+    pluralizedUserString() {
+      return this.activeUserCount === 1 ? 'user' : 'users'
+    }
   },
   created() {
     console.log('[App] Loading App component')
@@ -130,7 +153,7 @@ export default {
   },
   data() {
     return {
-      version: '0.1.2'
+      version: '0.1.3'
     }
   },
   methods: {
@@ -173,6 +196,11 @@ export default {
 </script>
 
 <style>
+.v-toolbar__content {
+  padding-right: 4px !important;
+  padding-left: 4px !important;
+}
+
 .clickable {
   cursor: pointer;
 }

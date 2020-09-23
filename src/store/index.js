@@ -120,13 +120,6 @@ export default new Vuex.Store({
     })
   },
   getters: {
-    userName(state) {
-      if (state.user) {
-        return state.user.name || 'Anonymous'
-      } else {
-        return 'Not logged in'
-      }
-    },
     playerObject(state) {
       return new Player(state.player)
     },

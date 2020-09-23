@@ -1,3 +1,4 @@
+import firebase from 'firebase/app'
 import { store } from '@/plugins/firebase'
 import Challenge from '@/models/challenge'
 
