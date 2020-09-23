@@ -1,5 +1,8 @@
 # Changelog
 
+- Allow status message to be displayed via system messages (e.g. known issues)
+- Bugfix: Re-enabled and fix form code validation
+
 ### 0.1.2
 
 - Fix login bug

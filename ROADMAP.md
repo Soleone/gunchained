@@ -9,15 +9,14 @@ None of this is guaranteed to be worked on by anyone.
 
 ### 0.1.3
 
-- Bugfix: Re-enabled and fix form code validation
 - See number of online users (recently logged in)
-- Allow status message to be displayed (e.g. bugs)
-- Notifications when challenges are made available
-  - Browser notification API?
-  - [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 
 ### 0.1.4
 
+- Notifications when challenges are made available
+  - Browser notification API?
+  - User profile switch to receive notifications or not
+  - [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
 - Automatically expire availableSince after 12h
   - [github example code](https://github.com/firebase/functions-samples/blob/master/delete-unused-accounts-cron/functions/index.js)
 

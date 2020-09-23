@@ -136,7 +136,13 @@ export default {
       ],
       rules: {
         code: {
-          length: value => true
+          length: value => {
+            return (
+              !value ||
+              (value.length >= 3 && value.length <= 40) ||
+              'Code must be blank or between 3 and 40 characters.'
+            )
+          }
         }
       }
     }
