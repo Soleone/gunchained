@@ -27,6 +27,7 @@ export default class Player {
         guName: null,
         description: null,
         rank: null,
+        lastActiveAt: firebase.firestore.FieldValue.serverTimestamp(),
         challenge: {
           code: null,
           description: null,

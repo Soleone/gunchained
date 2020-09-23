@@ -4,6 +4,7 @@ import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import { store } from '@/plugins/firebase'
 import Player from '@/models/player'
 import Challenge from '@/models/challenge'
+import firebase from 'firebase/app'
 
 Vue.use(Vuex)
 
@@ -47,7 +48,10 @@ export default new Vuex.Store({
     },
     updatePlayer({ dispatch, state }, player) {
       // create a copy that excludes id
-      const newPlayer = { ...player }
+      const newPlayer = {
+        ...player,
+        lastActiveAt: firebase.firestore.FieldValue.serverTimestamp()
+      }
       newPlayer.challenge = player.challenge.toFire()
       return store
         .collection('players')
@@ -66,7 +70,10 @@ export default new Vuex.Store({
         })
     },
     updateAvailability({ dispatch, state }, player) {
-      const newPlayer = { challenge: player.challenge.toFire() }
+      const newPlayer = {
+        lastActiveAt: firebase.firestore.FieldValue.serverTimestamp(),
+        challenge: player.challenge.toFire()
+      }
       return store
         .collection('players')
         .doc(state.user.uid)
