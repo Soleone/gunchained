@@ -50,6 +50,7 @@ None of this is guaranteed to be worked on by anyone.
 
 ### User facing
 
+- Filter out stale challenges by setting to unavailable after a certain amount of no activity (e.g. 24h)
 - Users can send comments to available challenges' players to ask for status updates
   - Requires inbox for players to receive these comments
 - Player profile fields:
