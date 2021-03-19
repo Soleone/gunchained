@@ -13,6 +13,7 @@ export default new Vuex.Store({
     user: null,
     player: {},
     players: [],
+    videos: [],
     status: {
       visible: false,
       message: null,
@@ -117,6 +118,13 @@ export default new Vuex.Store({
       return bindFirestoreRef('app', store.collection('app').doc('instance'), {
         reset: false
       })
+    }),
+    bindVideosRef: firestoreAction(({ bindFirestoreRef }) => {
+      return bindFirestoreRef(
+        'videos',
+        store.collection('videos').orderBy('addedAt', 'desc'),
+        { reset: false }
+      )
     })
   },
   getters: {
