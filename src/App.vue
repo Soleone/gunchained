@@ -1,8 +1,6 @@
 <template>
   <v-app>
     <v-app-bar color="#263238" dark app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
       <div class="d-flex align-center px-0">
         <v-img
           @click="$router.push('/')"
@@ -12,9 +10,14 @@
           width="32"
         />
 
-        <v-toolbar-title @click="$router.push('/')" class="clickable">
-          <span class="d-none d-sm-inline">Gunchained {{ title }}</span>
-          <span class="d-inline d-sm-none">GU</span>
+        <v-toolbar-title>
+          <span @click="$router.push('/')" class="clickable">
+            <span class="d-none d-sm-inline">Gunchained</span>
+            <span class="d-inline d-sm-none">GU</span>
+          </span>
+          <span class="d-none d-sm-inline">
+             {{ title }}
+          </span>
         </v-toolbar-title>
 
         <v-chip
@@ -37,14 +40,6 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="d-flex align-center">
-        <div v-if="!user">
-          <Tooltip tooltip="Sign in" bottom>
-            <v-btn to="/login" text fab small class="text--secondary">
-              <v-icon color="white">mdi-login</v-icon>
-            </v-btn>
-          </Tooltip>
-        </div>
-
         <div v-if="user" class="d-flex align-center ">
           <v-switch
             dark
@@ -65,25 +60,31 @@
             </v-avatar>
             Profile
           </v-chip>
-
-          <Tooltip tooltip="Log out" bottom>
-            <v-btn @click="logout" text fab small class="text--secondary">
-              <v-icon color="white">mdi-logout</v-icon>
-            </v-btn>
-          </Tooltip>
         </div>
       </v-toolbar-items>
+
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mr-1"></v-app-bar-nav-icon>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app dark temporary height="25%" class="mt-14">
+    <v-navigation-drawer v-model="drawer" app dark temporary right width="200">
       <v-list dense nav>
-        <v-list-item v-for="link in navigation" :key="link.label" link :to="link.route">
+        <v-list-item link v-for="link in navigation" :key="link.label" :to="link.route">
           <v-list-item-icon>
             <v-icon>{{ link.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
             <v-list-item-title>{{ link.label }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link @click="logout" v-if="user">
+          <v-list-item-icon>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Log out</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -156,6 +157,11 @@ export default {
     },
     pluralizedUserString() {
       return this.activeUserCount === 1 ? 'user' : 'users'
+    },
+    navigation() {
+      const links = this.links
+      if (!this.user) links.pop
+      return links
     }
   },
   created() {
@@ -172,7 +178,7 @@ export default {
     return {
       version: '0.1.4',
       drawer: false,
-      navigation: [
+      links: [
         {
           label: "Arena",
           icon: "mdi-fencing",
@@ -182,12 +188,18 @@ export default {
           label: "Videos",
           icon: 'mdi-video',
           route: "/videos"
+        },
+        {
+          label: "Sign in",
+          icon: "mdi-login",
+          route: "/login"
         }
       ]
     }
   },
   methods: {
     logout() {
+      console.log("Logging out")
       firebase
         .auth()
         .signOut()
