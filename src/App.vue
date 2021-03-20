@@ -13,7 +13,7 @@
         />
 
         <v-toolbar-title @click="$router.push('/')" class="clickable">
-          <span class="d-none d-sm-inline">Gunchained Arena</span>
+          <span class="d-none d-sm-inline">Gunchained {{ title }}</span>
           <span class="d-inline d-sm-none">GU</span>
         </v-toolbar-title>
 
@@ -146,7 +146,7 @@ export default {
     FooterBtn
   },
   computed: {
-    ...mapState(['user', 'app', 'status']),
+    ...mapState(['user', 'app', 'status', 'title']),
     ...mapGetters(['appStatus', 'isAvailableEnabled']),
     ...mapGetters({
       player: 'playerObject'

@@ -21,6 +21,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('bindVideosRef')
+    this.$store.dispatch('setTitle', 'Videos')
   },
   computed: {
     ...mapState(['videos'])

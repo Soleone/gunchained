@@ -10,6 +10,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    title: null,
     user: null,
     player: {},
     players: [],
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     reload(state) {
       console.log('Reloading...')
       state.reloadKey += 1
+    },
+    setTitle(state, title) {
+      state.title = title
     }
   },
   actions: {
@@ -95,6 +99,9 @@ export default new Vuex.Store({
     },
     reload({ commit }) {
       commit('reload')
+    },
+    setTitle({ commit }, title) {
+      commit('setTitle', title)
     },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {
       console.log('[Vuex] Binding player ref from Firestore')
