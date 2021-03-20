@@ -176,7 +176,7 @@ export default {
   },
   data() {
     return {
-      version: '0.1.4',
+      version: '0.1.5',
       drawer: false,
       links: [
         {
