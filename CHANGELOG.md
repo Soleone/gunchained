@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.1.5
+
+- Introduce new Videos section
+- Add dedication navigation drawer
+- Move login/logout from unlabelled buttons to navigation
+
 ### 0.1.4
 
 - Remove guest login because it causes too many accounts to be created

@@ -10,9 +10,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    title: null,
     user: null,
     player: {},
     players: [],
+    videos: [],
     status: {
       visible: false,
       message: null,
@@ -40,6 +42,9 @@ export default new Vuex.Store({
     reload(state) {
       console.log('Reloading...')
       state.reloadKey += 1
+    },
+    setTitle(state, title) {
+      state.title = title
     }
   },
   actions: {
@@ -95,6 +100,9 @@ export default new Vuex.Store({
     reload({ commit }) {
       commit('reload')
     },
+    setTitle({ commit }, title) {
+      commit('setTitle', title)
+    },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {
       console.log('[Vuex] Binding player ref from Firestore')
       return bindFirestoreRef(
@@ -117,6 +125,13 @@ export default new Vuex.Store({
       return bindFirestoreRef('app', store.collection('app').doc('instance'), {
         reset: false
       })
+    }),
+    bindVideosRef: firestoreAction(({ bindFirestoreRef }) => {
+      return bindFirestoreRef(
+        'videos',
+        store.collection('videos').orderBy('addedAt', 'desc'),
+        { reset: false }
+      )
     })
   },
   getters: {

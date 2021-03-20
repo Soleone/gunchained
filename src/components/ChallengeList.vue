@@ -4,7 +4,7 @@
       <v-spacer></v-spacer>
       <v-col cols="12" :lg="columnSizeLg">
         <v-alert v-if="!user" type="info" text>
-          Sign in on the top right
+          Sign in on the top left
           <span class="d-none d-sm-inline">
             to share your challenge code.
           </span>
