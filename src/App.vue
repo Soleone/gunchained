@@ -159,9 +159,11 @@ export default {
       return this.activeUserCount === 1 ? 'user' : 'users'
     },
     navigation() {
-      const links = this.links
-      if (!this.user) links.pop
-      return links
+      if (this.user) {
+        return this.links.filter(link => link.route !== '/login')
+      } else {
+        return this.links
+      }
     }
   },
   created() {
