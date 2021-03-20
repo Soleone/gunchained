@@ -1,11 +1,9 @@
 <template>
   <v-container>
-    <v-row v-for="video in videos" :key="video.uid">
-      <v-spacer></v-spacer>
-      <v-col cols="12">
+    <v-row>
+      <v-col cols="12" lg="6" v-for="video in videos" :key="video.uid">
         <Video :url="video.url" :title="video.title" :category="video.category" :author="video.author" />
       </v-col>
-      <v-spacer></v-spacer>
     </v-row>
   </v-container>
 </template>

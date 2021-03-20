@@ -1,9 +1,9 @@
 <template>
-  <v-card class="mx-auto" max-width="320">
+  <v-card class="mx-auto" :max-width="width">
     <v-card-title>{{ title }}</v-card-title>
     <v-img class="mx-2">
-      <iframe width="320"
-              height="200"
+      <iframe :width="width"
+              :height="height"
               :src="embedUrl"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
@@ -19,6 +19,9 @@
 </template>
 
 <script>
+const DIMENSIONS = {
+}
+
 export default {
   name: 'Video',
   props: {
@@ -39,9 +42,32 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      dimensions: {
+        lg: {
+          width: 640,
+          height: 385
+        },
+        sm: {
+          width: 320,
+          height: 200
+        }
+      }
+    }
+  },
   computed: {
     embedUrl() {
       return this.url.replace('/watch?v=', '/embed/')
+    },
+    width() {
+      return this.currentDimensions.width
+    },
+    height() {
+      return this.currentDimensions.height
+    },
+    currentDimensions() {
+      return this.dimensions[this.$vuetify.breakpoint.name] || this.dimensions['sm']
     }
   }
 }
