@@ -1,6 +1,8 @@
 <template>
   <v-app>
     <v-app-bar color="#263238" dark app>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
       <div class="d-flex align-center px-0">
         <v-img
           @click="$router.push('/')"
@@ -31,6 +33,7 @@
           </span>
         </v-chip>
       </div>
+
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="d-flex align-center">
@@ -71,6 +74,20 @@
         </div>
       </v-toolbar-items>
     </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" app dark temporary height="25%" class="mt-14">
+      <v-list dense nav>
+        <v-list-item v-for="link in navigation" :key="link.label" link :to="link.route">
+          <v-list-item-icon>
+            <v-icon>{{ link.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ link.label }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-main>
       <v-alert
@@ -153,7 +170,20 @@ export default {
   },
   data() {
     return {
-      version: '0.1.4'
+      version: '0.1.4',
+      drawer: false,
+      navigation: [
+        {
+          label: "Arena",
+          icon: "mdi-fencing",
+          route: "/"
+        },
+        {
+          label: "Videos",
+          icon: 'mdi-video',
+          route: "/videos"
+        }
+      ]
     }
   },
   methods: {
