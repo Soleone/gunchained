@@ -30,6 +30,12 @@ const routes = [
     component: Videos
   },
   {
+    path: '/videos/categories/:category',
+    name: 'Videos',
+    component: Videos,
+    props: true
+  },
+  {
     path: '/upload',
     name: 'VideoUpload',
     component: VideoUpload

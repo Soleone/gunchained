@@ -11,7 +11,7 @@
     </v-img>
     <v-card-text class="d-flex justify-space-between align-center py-0">
       <span>By {{ author }}</span>
-      <v-chip class="ma-2" color="primary">
+      <v-chip class="ma-2" color="primary" @click="visitCategory(category)">
         {{ category}}
       </v-chip>
     </v-card-text>
@@ -68,6 +68,11 @@ export default {
     },
     currentDimensions() {
       return this.dimensions[this.$vuetify.breakpoint.name] || this.dimensions['sm']
+    }
+  },
+  methods: {
+    visitCategory(category) {
+      this.$router.push(`/videos/categories/${category}`)
     }
   }
 }

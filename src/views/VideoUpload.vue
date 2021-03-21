@@ -17,6 +17,9 @@
 
             <v-select label="Category" :items="categories" v-model="category">
             </v-select>
+
+            <v-textarea label="Description" v-model="description">
+            </v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-btn color="success" @click="upload">Upload</v-btn>
@@ -39,6 +42,7 @@ export default {
       author: null,
       title: null,
       category: null,
+      description: null,
       imageUrl: "/placeholder_image.png",
       baseURL: "https://www.youtube.com/oembed?format=json"
     }
@@ -53,7 +57,8 @@ export default {
         author: this.author,
         title: this.title,
         url: this.url,
-        category: this.category
+        category: this.category,
+        description: this.description
       }
     }
   },

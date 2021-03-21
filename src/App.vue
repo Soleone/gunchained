@@ -66,15 +66,28 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mr-1"></v-app-bar-nav-icon>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app dark temporary right width="200">
-      <v-list dense nav>
-        <v-list-item link v-for="link in navigation" :key="link.label" :to="link.route">
+          <template v-slot:activator>
+            <v-list-item-title>Videos</v-list-item-title>
+          </template>
+
+          <v-list-item link v-for="link in categoryLinks" :key="link.label" :to="link.route">
+            <v-list-item-content>
+              <v-list-item-title>{{ link.label }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+      </v-list>
+
+      <v-divider></v-divider>
+
+      <v-list>
+        <v-list-item link to="/login" v-if="!user">
           <v-list-item-icon>
-            <v-icon>{{ link.icon }}</v-icon>
+            <v-icon>mdi-login</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ link.label }}</v-list-item-title>
+            <v-list-item-title>Sign in</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -88,19 +101,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
-
-    <v-main>
-      <v-alert
-        v-if="appStatus.visible"
-        :color="appStatus.color"
-        :type="appStatus.type"
-        dismissible
-        class="ma-3"
-      >
-        {{ appStatus.message }}
-      </v-alert>
-      <router-view></router-view>
 
       <v-snackbar
         v-model="status.visible"
@@ -139,6 +139,7 @@ import firebase from 'firebase/app'
 import User from '@/models/user'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
+import { CATEGORIES } from '@/constants/constants.js'
 
 export default {
   name: 'App',
@@ -158,12 +159,13 @@ export default {
     pluralizedUserString() {
       return this.activeUserCount === 1 ? 'user' : 'users'
     },
-    navigation() {
-      if (this.user) {
-        return this.links.filter(link => link.route !== '/login')
-      } else {
-        return this.links
-      }
+    categoryLinks() {
+      return Object.values(CATEGORIES).map( category => {
+        return {
+          label: category,
+          route: `/videos/categories/${category}`
+        }
+      })
     }
   },
   created() {
@@ -180,23 +182,6 @@ export default {
     return {
       version: '0.1.5',
       drawer: false,
-      links: [
-        {
-          label: "Arena",
-          icon: "mdi-fencing",
-          route: "/"
-        },
-        {
-          label: "Videos",
-          icon: 'mdi-video',
-          route: "/videos"
-        },
-        {
-          label: "Sign in",
-          icon: "mdi-login",
-          route: "/login"
-        }
-      ]
     }
   },
   methods: {
@@ -222,6 +207,9 @@ export default {
     },
     visitPlayer() {
       this.$router.push({ name: 'Player' })
+    },
+    visitVideos() {
+      this.$router.push({ name: 'Videos' })
     }
   },
   watch: {
