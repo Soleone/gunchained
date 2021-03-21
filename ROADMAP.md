@@ -7,17 +7,11 @@ None of this is guaranteed to be worked on by anyone.
 
 ## Milestones
 
-### 0.2.0
-
-- Videos: Filterable categories
-
 ## Bugfixes
 
 ### High priority
 
 ### Low priority
-
-- Bugfix: 404 hack causes browser warning and wayback machine link (polish)
 
 ## Ideas
 

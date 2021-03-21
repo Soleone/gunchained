@@ -1,5 +1,13 @@
 # Changelog
 
+### 0.2
+
+- Category filtering
+  - Main menu categories list
+  - Breadcrumbs shows current category
+  - Clicking a video's category pill filters by that category
+- Bugfix: 404 hack causes browser warning and wayback machine link (polish)
+
 ### 0.1.5
 
 - Introduce new Videos section
