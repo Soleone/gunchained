@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Player from '../views/Player.vue'
 import Videos from '../views/Videos.vue'
+import VideoUpload from '../views/VideoUpload.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/videos',
     name: 'Videos',
     component: Videos
+  },
+  {
+    path: '/upload',
+    name: 'VideoUpload',
+    component: VideoUpload
   },
   {
     path: '/about',

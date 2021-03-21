@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto" :max-width="width">
-    <v-card-title>{{ title }}</v-card-title>
+    <v-card-title class="text-subtitle-1">{{ title }}</v-card-title>
     <v-img class="mx-2">
       <iframe :width="width"
               :height="height"

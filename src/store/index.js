@@ -74,6 +74,28 @@ export default new Vuex.Store({
           })
         })
     },
+    uploadVideo({ dispatch, state }, video) {
+      // create a copy that excludes id
+      const newVideo = {
+        ...video,
+        addedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }
+      return store
+        .collection('videos')
+        .add(newVideo)
+        .then(() => {
+          dispatch('setStatus', {
+            message: 'Video uploaded.'
+          })
+        })
+        .catch(response => {
+          dispatch('setStatus', {
+            message: 'Failed to upload video!',
+            color: 'error'
+          })
+          console.log(response)
+        })
+    },
     updateAvailability({ dispatch, state }, player) {
       const newPlayer = {
         lastActiveAt: firebase.firestore.FieldValue.serverTimestamp(),
