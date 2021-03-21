@@ -66,6 +66,19 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mr-1"></v-app-bar-nav-icon>
     </v-app-bar>
 
+    <v-navigation-drawer v-model="drawer" fixed temporary right width="300">
+      <v-list dense nav>
+        <v-list-item link to="/">
+          <v-list-item-icon>
+            <v-icon>mdi-fencing</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Arena</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-group prepend-icon="mdi-video" @click="visitVideos">
           <template v-slot:activator>
             <v-list-item-title>Videos</v-list-item-title>
           </template>
@@ -101,6 +114,19 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <v-alert
+        v-if="appStatus.visible"
+        :color="appStatus.color"
+        :type="appStatus.type"
+        dismissible
+        class="ma-3"
+      >
+        {{ appStatus.message }}
+      </v-alert>
+      <router-view :key="$route.fullPath"></router-view>
 
       <v-snackbar
         v-model="status.visible"
@@ -109,6 +135,7 @@
         >{{ status.message }}</v-snackbar
       >
     </v-main>
+
     <v-footer class="d-flex justify-center">
       <Tooltip tooltip="See what changed between versions" top>
         <FooterBtn
