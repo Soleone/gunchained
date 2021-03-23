@@ -2,20 +2,12 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-breadcrumbs large :items="breadcrumbs" divider="/">
-          <template v-slot:item="{ item }">
-            <v-breadcrumbs-item :href="item.href">
-              {{ item.text.toUpperCase() }}
-            </v-breadcrumbs-item>
-          </template>
-        </v-breadcrumbs>
-      </v-col>
-    </v-row>
+        <v-chip class="mr-1 mb-2" to="/videos" :label="!videoCategory">
+          All
+        </v-chip>
 
-    <v-row>
-      <v-col>
         <v-chip v-for="category in categories"
-                class="ma-2"
+                class="mr-1 mb-2"
                 :dark="categoryObject(category).isDarkColor()"
                 :color="categoryObject(category).color()"
                 :to="`/videos/categories/${category}`"
