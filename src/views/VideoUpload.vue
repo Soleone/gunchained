@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     categories() {
-      return Object.values(CATEGORIES)
+      return CATEGORIES
     },
     video() {
       return {

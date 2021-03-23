@@ -166,7 +166,7 @@ import firebase from 'firebase/app'
 import User from '@/models/user'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
-import { CATEGORIES } from '@/constants/constants.js'
+import { CATEGORIES, CATEGORY_LABELS } from '@/constants/constants.js'
 
 export default {
   name: 'App',
@@ -187,9 +187,9 @@ export default {
       return this.activeUserCount === 1 ? 'user' : 'users'
     },
     categoryLinks() {
-      return Object.values(CATEGORIES).map( category => {
+      return CATEGORIES.map( category => {
         return {
-          label: category,
+          label: CATEGORY_LABELS[category],
           route: `/videos/categories/${category}`
         }
       })
