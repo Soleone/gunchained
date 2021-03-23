@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.1
+
+- Category colors and labels
+
 ### 0.2
 
 - Category filtering

@@ -166,7 +166,7 @@ import firebase from 'firebase/app'
 import User from '@/models/user'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
-import { CATEGORIES, CATEGORY_LABELS } from '@/constants/constants.js'
+import { VERSION, CATEGORIES, CATEGORY_LABELS } from '@/constants/constants.js'
 
 export default {
   name: 'App',
@@ -207,7 +207,7 @@ export default {
   },
   data() {
     return {
-      version: '0.2',
+      version: VERSION,
       drawer: false,
     }
   },

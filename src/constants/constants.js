@@ -1,3 +1,5 @@
+export const VERSION = '0.2.1'
+
 export const STRATEGY = 'strategy'
 export const DECKS = 'decks'
 export const CARDS = 'cards'
