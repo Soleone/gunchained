@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.2
+
+- Improved video navigation
+
 ### 0.2.1
 
 - Category colors and labels

@@ -13,6 +13,20 @@
     </v-row>
 
     <v-row>
+      <v-col>
+        <v-chip v-for="category in categories"
+                class="ma-2"
+                :dark="categoryObject(category).isDarkColor()"
+                :color="categoryObject(category).color()"
+                :to="`/videos/categories/${category}`"
+                :label="videoCategory === category"
+                :key="category">
+          {{ categoryObject(category).label() }}
+        </v-chip>
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col cols="12" lg="6" v-for="video in videos" :key="video.uid">
         <Video :url="video.url" :title="video.title" :category="video.category" :author="video.author" />
       </v-col>
@@ -23,6 +37,8 @@
 <script>
 import Video from '@/components/Video.vue'
 import { mapState } from 'vuex'
+import { CATEGORIES } from '@/constants/constants.js'
+import Category from '@/models/category.js'
 
 export default {
   name: 'Videos',
@@ -56,6 +72,14 @@ export default {
       } else {
         return null
       }
+    },
+    categories() {
+      return CATEGORIES
+    }
+  },
+  methods: {
+    categoryObject(category) {
+      return new Category(category)
     }
   }
 }

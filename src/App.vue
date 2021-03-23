@@ -68,27 +68,15 @@
 
     <v-navigation-drawer v-model="drawer" fixed temporary right width="300">
       <v-list dense nav>
-        <v-list-item link to="/">
+        <v-list-item v-for="link in navigation" link :to="link.route" :key="link.label">
           <v-list-item-icon>
-            <v-icon>mdi-fencing</v-icon>
+            <v-icon>{{ link.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>Arena</v-list-item-title>
+            <v-list-item-title>{{ link.label }} </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-group prepend-icon="mdi-video" @click="visitVideos">
-          <template v-slot:activator>
-            <v-list-item-title>Videos</v-list-item-title>
-          </template>
-
-          <v-list-item link v-for="link in categoryLinks" :key="link.label" :to="link.route">
-            <v-list-item-content>
-              <v-list-item-title>{{ link.label }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
       </v-list>
 
       <v-divider></v-divider>
@@ -166,7 +154,7 @@ import firebase from 'firebase/app'
 import User from '@/models/user'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
-import { VERSION, CATEGORIES, CATEGORY_LABELS } from '@/constants/constants.js'
+import { VERSION } from '@/constants/constants.js'
 
 export default {
   name: 'App',
@@ -185,14 +173,6 @@ export default {
     },
     pluralizedUserString() {
       return this.activeUserCount === 1 ? 'user' : 'users'
-    },
-    categoryLinks() {
-      return CATEGORIES.map( category => {
-        return {
-          label: CATEGORY_LABELS[category],
-          route: `/videos/categories/${category}`
-        }
-      })
     }
   },
   created() {
@@ -209,6 +189,18 @@ export default {
     return {
       version: VERSION,
       drawer: false,
+      navigation: [
+        {
+          label: 'Arena',
+          icon: 'mdi-fencing',
+          route: '/',
+        },
+        {
+          label: 'Videos',
+          icon: 'mdi-video',
+          route: '/videos'
+        }
+      ]
     }
   },
   methods: {

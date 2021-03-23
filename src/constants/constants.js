@@ -1,4 +1,4 @@
-export const VERSION = '0.2.1'
+export const VERSION = '0.2.2'
 
 export const STRATEGY = 'strategy'
 export const DECKS = 'decks'
@@ -18,31 +18,4 @@ export const CATEGORIES = [
   FUNDAMENTALS,
   FUN,
   OTHER
-]
-
-export const CATEGORY_LABELS = {
-  [STRATEGY]: 'Strategy',
-  [DECKS]: 'Decks',
-  [CARDS]: 'Cards',
-  [TRADING]: 'Trading',
-  [PATCH_NOTES]: 'Patch Notes',
-  [FUNDAMENTALS]: 'Fundamentals',
-  [FUN]: 'Fun',
-  [OTHER]: 'Other'
-}
-
-export const COLORS = {
-  [STRATEGY]: 'blue',
-  [DECKS]: 'orange',
-  [CARDS]: 'yellow',
-  [TRADING]: 'lime',
-  [PATCH_NOTES]: 'red',
-  [FUNDAMENTALS]: 'teal',
-  [FUN]: 'purple',
-  [OTHER]: 'grey'
-}
-
-export const DARK_COLORS = [
-  'teal',
-  'red'
 ]

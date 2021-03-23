@@ -11,8 +11,8 @@
     </v-img>
     <v-card-text class="d-flex justify-space-between align-center py-0">
       <span>By {{ author }}</span>
-      <v-chip class="ma-2" :dark="isDarkColor(category)" :color="colorForCategory(category)" @click="visitCategory(category)">
-        {{ labelForCategory(category) }}
+      <v-chip class="ma-2" :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${category}`">
+        {{ categoryObject.label() }}
       </v-chip>
     </v-card-text>
   </v-card>
@@ -22,7 +22,7 @@
 const DIMENSIONS = {
 }
 
-import { COLORS, CATEGORY_LABELS, DARK_COLORS } from '@/constants/constants.js'
+import Category from '@/models/category.js'
 
 export default {
   name: 'Video',
@@ -70,20 +70,9 @@ export default {
     },
     currentDimensions() {
       return this.dimensions[this.$vuetify.breakpoint.name] || this.dimensions['sm']
-    }
-  },
-  methods: {
-    visitCategory(category) {
-      this.$router.push(`/videos/categories/${category}`)
     },
-    colorForCategory(category) {
-      return COLORS[category]
-    },
-    labelForCategory(category) {
-      return CATEGORY_LABELS[category]
-    },
-    isDarkColor(category) {
-      return DARK_COLORS.includes(this.colorForCategory(category))
+    categoryObject() {
+      return new Category(this.category)
     }
   }
 }
