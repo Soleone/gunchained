@@ -30,7 +30,7 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12" lg="6" v-for="video in videos" :key="video.uid">
+      <v-col cols="12" lg="6" xl="4" v-for="video in videos" :key="video.uid">
         <Video :url="video.url" :title="video.title" :category="video.category" :author="video.author" :addedAt="video.addedAt" />
       </v-col>
     </v-row>

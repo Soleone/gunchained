@@ -90,7 +90,7 @@ export default {
       return this.width + 12
     },
     currentDimensions() {
-      return this.dimensions[this.$vuetify.breakpoint.name] || this.dimensions['sm']
+      return this.$vuetify.breakpoint.lgAndUp ? this.dimensions['lg'] : this.dimensions['sm']
     },
     categoryObject() {
       return new Category(this.category)
