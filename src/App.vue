@@ -3,7 +3,7 @@
     <v-app-bar color="#263238" dark app>
       <div class="d-flex align-center px-0">
         <v-img
-          @click="$router.push('/')"
+          @click="$router.push({ name: 'Home' })"
           alt="Gods Unchained Logo"
           class="mr-2 clickable"
           src="@/assets/images/gods-unchained-logo-256.png"
@@ -11,7 +11,7 @@
         />
 
         <v-toolbar-title>
-          <span @click="$router.push('/')" class="clickable">
+          <span @click="$router.push({ name: 'Home' })" class="clickable">
             <span class="d-none d-sm-inline">Gunchained</span>
             <span class="d-inline d-sm-none">GU</span>
           </span>
@@ -193,7 +193,7 @@ export default {
         {
           label: 'Arena',
           icon: 'mdi-fencing',
-          route: '/',
+          route: '/arena',
         },
         {
           label: 'Videos',
@@ -215,7 +215,7 @@ export default {
             message: 'Logged out.',
             color: 'default'
           })
-          this.$router.push({ path: '/' })
+          this.$router.push({ name: 'Home' })
         })
     },
     updateAvailability() {

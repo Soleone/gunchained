@@ -19,7 +19,6 @@ None of this is guaranteed to be worked on by anyone.
 
 #### High Priority
 
-- Add Welcome page
 - Changing code should bump availableSince
 - Automatically expire availableSince after 12h
   - [github example code](https://github.com/firebase/functions-samples/blob/master/delete-unused-accounts-cron/functions/index.js)

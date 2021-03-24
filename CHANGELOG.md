@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.4
+
+- Add Welcome page
+
 ### 0.2.3
 
 - Filter by author
