@@ -20,7 +20,7 @@
     <v-row class="text-body-1">
       <v-col cols="5" class="red lighten-5 rounded">
         <p>You can either visit the <v-icon small>mdi-fencing</v-icon> <a href="/arena"> Arena</a> and find other players to play against.</p>
-        <p>To use this feature and share your invite code you will have to <a href="/login">sign in</a> first to be able to fill out your <a href="/profile">player profile</a>.</p>
+        <p>To use this feature and share your invite code you will have to <a href="/login">sign in</a> first to be able to fill out your <a href="/player">player profile</a>.</p>
       </v-col>
       <v-spacer></v-spacer>
       <v-col cols="5" class="green lighten-5 rounded">
