@@ -1,5 +1,16 @@
 <template>
   <v-container>
+    <v-row v-if="videoAuthor">
+      <v-col>
+        <v-breadcrumbs large :items="breadcrumbs" divider="/">
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item :href="item.href">
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col>
         <v-chip class="mr-1 mb-2" to="/videos" :label="!videoCategory">
@@ -20,7 +31,7 @@
 
     <v-row>
       <v-col cols="12" lg="6" v-for="video in videos" :key="video.uid">
-        <Video :url="video.url" :title="video.title" :category="video.category" :author="video.author" />
+        <Video :url="video.url" :title="video.title" :category="video.category" :author="video.author" :addedAt="video.addedAt" />
       </v-col>
     </v-row>
   </v-container>
@@ -41,25 +52,30 @@ export default {
     category: {
       type: String,
       required: false
-    }
+    },
+    author: {
+      type: String,
+      required: false
+    },
   },
   mounted() {
     this.$store.dispatch('setTitle', 'Videos')
+    this.$store.dispatch('setVideoAuthor', this.author)
     this.$store.dispatch('setVideoCategory', this.category)
     this.$store.dispatch('bindVideosRef')
   },
   computed: {
-    ...mapState(['videos', 'videoCategory']),
+    ...mapState(['videos', 'videoCategory', 'videoAuthor']),
     breadcrumbs() {
       return [
-        { text: 'Videos', href: '/videos' },
-        this.categoryBreadcrumb
+        { text: 'Authors', href: '/videos' },
+        this.authorBreadcrumb
       ].filter(item => item)
     },
-    categoryBreadcrumb() {
-      if (this.videoCategory) {
+   authorBreadcrumb() {
+      if (this.videoAuthor) {
         return {
-          text: this.videoCategory
+          text: this.videoAuthor
         }
       } else {
         return null

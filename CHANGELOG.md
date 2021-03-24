@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.2.3
+
+- Filter by author
+- Display added timestamp
+- Bugfix: Fix embed video size to ensure full screen button is shown
+
 ### 0.2.2
 
 - Improved video navigation

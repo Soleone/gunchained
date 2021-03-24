@@ -36,6 +36,12 @@ const routes = [
     props: true
   },
   {
+    path: '/videos/authors/:author',
+    name: 'Videos',
+    component: Videos,
+    props: true
+  },
+  {
     path: '/upload',
     name: 'VideoUpload',
     component: VideoUpload

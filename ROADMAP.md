@@ -7,10 +7,6 @@ None of this is guaranteed to be worked on by anyone.
 
 ## Milestones
 
-### 0.2.1
-
-- Bugfix: Fix embed video size to ensure full screen button is shown
-
 ## Bugfixes
 
 ### High priority

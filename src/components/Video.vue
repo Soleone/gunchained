@@ -1,6 +1,10 @@
 <template>
-  <v-card class="mx-auto" :max-width="width">
+  <v-card class="mx-auto" :max-width="cardWidth">
     <v-card-title class="text-subtitle-1">{{ title }}</v-card-title>
+    <v-card-subtitle>
+      By
+      <a href="#" @click.prevent="visitAuthor(author)">{{ author }}</a>
+    </v-card-subtitle>
     <v-img class="mx-2">
       <iframe :width="width"
               :height="height"
@@ -9,11 +13,16 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
       </iframe>
     </v-img>
-    <v-card-text class="d-flex justify-space-between align-center py-0">
-      <span>By {{ author }}</span>
-      <v-chip class="ma-2" :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${category}`">
+    <v-card-text class="py-0 pb-2 d-flex justify-space-between align-center">
+      <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${category}`">
         {{ categoryObject.label() }}
       </v-chip>
+      <Tooltip tooltip="When this video was added to Gunchained. Typically not when it was created." top>
+        <v-chip outlined>
+          <v-icon left>mdi-clock-outline</v-icon>
+          {{ addedAtFormatted }}
+        </v-chip>
+      </Tooltip>
     </v-card-text>
   </v-card>
 </template>
@@ -23,9 +32,14 @@ const DIMENSIONS = {
 }
 
 import Category from '@/models/category.js'
+import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
+import dayjs from 'dayjs'
 
 export default {
   name: 'Video',
+  components: {
+    Tooltip
+  },
   props: {
     url: {
       type: String,
@@ -42,14 +56,18 @@ export default {
     category: {
       type: String,
       required: true
+    },
+    addedAt: {
+      type: Object,
+      required: true
     }
   },
   data() {
     return {
       dimensions: {
         lg: {
-          width: 640,
-          height: 385
+          width: 560,
+          height: 350
         },
         sm: {
           width: 320,
@@ -68,11 +86,22 @@ export default {
     height() {
       return this.currentDimensions.height
     },
+    cardWidth() {
+      return this.width + 12
+    },
     currentDimensions() {
       return this.dimensions[this.$vuetify.breakpoint.name] || this.dimensions['sm']
     },
     categoryObject() {
       return new Category(this.category)
+    },
+    addedAtFormatted() {
+      return dayjs(this.addedAt.toDate()).format('DD/MM/YYYY')
+    }
+  },
+  methods: {
+    visitAuthor(author) {
+      this.$router.push(`/videos/authors/${author}`)
     }
   }
 }

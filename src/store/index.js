@@ -16,6 +16,7 @@ export default new Vuex.Store({
     players: [],
     videos: [],
     videoCategory: null,
+    videoAuthor: null,
     status: {
       visible: false,
       message: null,
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     setVideoCategory(state, category) {
       state.videoCategory = category
+    },
+    setVideoAuthor(state, author) {
+      state.videoAuthor = author
     }
   },
   actions: {
@@ -132,6 +136,9 @@ export default new Vuex.Store({
     setVideoCategory({ commit }, category) {
       commit('setVideoCategory', category)
     },
+    setVideoAuthor({ commit }, author) {
+      commit('setVideoAuthor', author)
+    },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {
       console.log('[Vuex] Binding player ref from Firestore')
       return bindFirestoreRef(
@@ -160,7 +167,9 @@ export default new Vuex.Store({
       if (state.videoCategory) {
         query = query.where('category', '==', state.videoCategory)
       }
-
+      if (state.videoAuthor) {
+        query = query.where('author', '==', state.videoAuthor)
+      }
       return bindFirestoreRef(
         'videos',
         query,
