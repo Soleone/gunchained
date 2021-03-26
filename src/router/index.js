@@ -4,8 +4,9 @@ import Home from '../views/Home.vue'
 import Arena from '../views/Arena.vue'
 import Login from '../views/Login.vue'
 import Player from '../views/Player.vue'
+import VideoShow from '../views/VideoShow.vue'
 import Videos from '../views/Videos.vue'
-import VideoUpload from '../views/VideoUpload.vue'
+import VideoEdit from '../views/VideoEdit.vue'
 
 Vue.use(VueRouter)
 
@@ -36,31 +37,34 @@ const routes = [
     component: Videos
   },
   {
+    path: '/videos/:id',
+    name: 'VideoShow',
+    component: VideoShow,
+    props: true
+  },
+  {
+    path: '/upload',
+    name: 'VideoEdit',
+    component: VideoEdit
+  },
+  {
+    path: '/videos/edit/:id',
+    name: 'VideoEdit',
+    component: VideoEdit,
+    props: true
+  },
+  {
     path: '/videos/categories/:category',
-    name: 'Videos',
+    name: 'VideosByCategory',
     component: Videos,
     props: true
   },
   {
     path: '/videos/authors/:author',
-    name: 'Videos',
+    name: 'VideosByAuthor',
     component: Videos,
     props: true
   },
-  {
-    path: '/upload',
-    name: 'VideoUpload',
-    component: VideoUpload
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
 ]
 
 const router = new VueRouter({

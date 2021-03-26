@@ -8,6 +8,8 @@ import firebase from 'firebase/app'
 
 Vue.use(Vuex)
 
+const ADMIN_PLAYER_ID = 'qUiC8x84wZPeV2hhdveI4E4koYl1'
+
 export default new Vuex.Store({
   state: {
     title: null,
@@ -17,6 +19,7 @@ export default new Vuex.Store({
     videos: [],
     videoCategory: null,
     videoAuthor: null,
+    currentVideo: null,
     status: {
       visible: false,
       message: null,
@@ -53,6 +56,9 @@ export default new Vuex.Store({
     },
     setVideoAuthor(state, author) {
       state.videoAuthor = author
+    },
+    setCurrentVideo(state, video) {
+      state.currentVideo = video
     }
   },
   actions: {
@@ -82,23 +88,57 @@ export default new Vuex.Store({
           })
         })
     },
-    uploadVideo({ dispatch, state }, video) {
-      // create a copy that excludes id
-      const newVideo = {
-        ...video,
-        addedAt: firebase.firestore.FieldValue.serverTimestamp()
-      }
-      return store
+    createVideo({ dispatch }, video) {
+      video.addedAt = firebase.firestore.FieldValue.serverTimestamp()
+      store
         .collection('videos')
-        .add(newVideo)
+        .add(video)
         .then(() => {
           dispatch('setStatus', {
-            message: 'Video uploaded.'
+            message: 'Video created.'
           })
         })
         .catch(response => {
           dispatch('setStatus', {
-            message: 'Failed to upload video!',
+            message: 'Failed to create video!',
+            color: 'error'
+          })
+          console.log(response)
+        })
+    },
+    updateVideo({ dispatch }, { id, video }) {
+      console.log("Updating video", id, video)
+      store
+        .collection('videos')
+        .doc(id)
+        .set(video)
+        .then(() => {
+          dispatch('setStatus', {
+            message: 'Video updated.'
+          })
+        })
+        .catch(response => {
+          dispatch('setStatus', {
+            message: 'Failed to update video!',
+            color: 'error'
+          })
+          console.log(response)
+        })
+    },
+    deleteVideo({ dispatch }, id) {
+      console.log("Deleting video", id)
+      store
+        .collection('videos')
+        .doc(id)
+        .delete()
+        .then(() => {
+          dispatch('setStatus', {
+            message: 'Video deleted.'
+          })
+        })
+        .catch(response => {
+          dispatch('setStatus', {
+            message: 'Failed to delete video!',
             color: 'error'
           })
           console.log(response)
@@ -120,6 +160,23 @@ export default new Vuex.Store({
           })
         })
     },
+    loadCurrentVideo({ dispatch }, id) {
+      console.log("Fetching video information from db")
+      store.collection('videos').doc(id).get().then((doc) => {
+        const video = doc.data()
+        console.log("Received video information from db, setting data")
+        const currentVideo = {
+          url: video.url,
+          author: video.author,
+          title: video.title,
+          category: video.category,
+          description: video.description,
+          addedAt: video.addedAt,
+          imageUrl: video.imageUrl
+        }
+        dispatch('setCurrentVideo', currentVideo)
+      })
+    },
     createChallenge({ commit }, challenge) {
       commit('createChallenge', challenge)
     },
@@ -138,6 +195,9 @@ export default new Vuex.Store({
     },
     setVideoAuthor({ commit }, author) {
       commit('setVideoAuthor', author)
+    },
+    setCurrentVideo({ commit }, video) {
+      commit('setCurrentVideo', video)
     },
     bindPlayerRef: firestoreAction(({ bindFirestoreRef, state }) => {
       console.log('[Vuex] Binding player ref from Firestore')
@@ -195,6 +255,9 @@ export default new Vuex.Store({
     },
     appStatus(state) {
       return state.app.status || {}
+    },
+    isUserAdmin(state) {
+      return state.user.uid === ADMIN_PLAYER_ID
     }
   },
   modules: {}

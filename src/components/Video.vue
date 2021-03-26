@@ -1,20 +1,25 @@
 <template>
-  <v-card class="mx-auto" :max-width="cardWidth">
-    <v-card-title class="text-subtitle-1">{{ title }}</v-card-title>
+  <v-card class="mx-auto" :max-width="cardWidth" :to="`/videos/${id}`">
+    <v-card-title class="text-subtitle-1 flex justify-space-between">
+      <span>{{ video.title }}</span>
+      <v-btn v-if="isUserAdmin" icon :to="`/videos/edit/${id}`"><v-icon>mdi-pencil</v-icon></v-btn>
+    </v-card-title>
     <v-card-subtitle>
       By
-      <a href="#" @click.prevent="visitAuthor(author)">{{ author }}</a>
+      <a href="#" @click.prevent="visitAuthor(video.author)">{{ video.author }}</a>
     </v-card-subtitle>
-    <v-img class="mx-2">
-      <iframe :width="width"
-              :height="height"
-              :src="embedUrl"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-      </iframe>
+    <iframe v-if="showEmbed"
+            class="mx-2"
+            :width="width"
+            :height="height"
+            :src="embedUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+    <v-img v-if="!showEmbed" class="mx-2 mb-2" :src="video.imageUrl">
     </v-img>
     <v-card-text class="py-0 pb-2 d-flex justify-space-between align-center">
-      <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${category}`">
+      <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${video.category}`">
         {{ categoryObject.label() }}
       </v-chip>
       <Tooltip tooltip="When this video was added to Gunchained. Typically not when it was created." top>
@@ -31,6 +36,7 @@
 const DIMENSIONS = {
 }
 
+import { mapState, mapGetters } from 'vuex'
 import Category from '@/models/category.js'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import dayjs from 'dayjs'
@@ -41,25 +47,17 @@ export default {
     Tooltip
   },
   props: {
-    url: {
+    id: {
       type: String,
       required: true
     },
-    title: {
-      type: String,
-      required: true
-      },
-    author: {
-      type: String,
-      required: true
-    },
-    category: {
-      type: String,
-      required: true
-    },
-    addedAt: {
+    video: {
       type: Object,
       required: true
+    },
+    showEmbed: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -77,8 +75,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isUserAdmin']),
     embedUrl() {
-      return this.url.replace('/watch?v=', '/embed/')
+      return this.video.url.replace('/watch?v=', '/embed/')
     },
     width() {
       return this.currentDimensions.width
@@ -93,10 +92,10 @@ export default {
       return this.$vuetify.breakpoint.lgAndUp ? this.dimensions['lg'] : this.dimensions['sm']
     },
     categoryObject() {
-      return new Category(this.category)
+      return new Category(this.video.category)
     },
     addedAtFormatted() {
-      return dayjs(this.addedAt.toDate()).format('DD/MM/YYYY')
+      return dayjs(this.video.addedAt.toDate()).format('DD/MM/YYYY')
     }
   },
   methods: {
