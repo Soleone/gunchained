@@ -257,7 +257,7 @@ export default new Vuex.Store({
       return state.app.status || {}
     },
     isUserAdmin(state) {
-      return state.user.uid === ADMIN_PLAYER_ID
+      return state.user && state.user.uid === ADMIN_PLAYER_ID
     }
   },
   modules: {}
