@@ -18,6 +18,7 @@
     </v-row>
 
     <v-row class="text-body-1">
+      <v-spacer></v-spacer>
       <v-col cols="5" class="red lighten-5 rounded">
         <p>Visit the <v-icon small>mdi-fencing</v-icon> <a href="/arena" class="font-weight-medium"> Arena</a> and find other players to play against.</p>
         <p>Useful for casual matches or organizing a tournament setting.</p>
@@ -25,8 +26,9 @@
       </v-col>
       <v-spacer></v-spacer>
       <v-col cols="5" class="green lighten-5 rounded">
-        <p>Or you can visit the <v-icon small>mdi-video</v-icon> <a href="/videos" class="font-weight-medium">Video</a> library to find educational and entertaining content from community creators.</p>
+        <p>Or you can visit the <v-icon small>mdi-youtube</v-icon> <a href="/videos" class="font-weight-medium">Video</a> library to find educational and entertaining content from community creators.</p>
       </v-col>
+      <v-spacer></v-spacer>
     </v-row>
   </v-container>
 </template>

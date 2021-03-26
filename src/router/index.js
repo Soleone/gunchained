@@ -7,6 +7,7 @@ import Player from '../views/Player.vue'
 import VideoShow from '../views/VideoShow.vue'
 import Videos from '../views/Videos.vue'
 import VideoEdit from '../views/VideoEdit.vue'
+import Feedback from '../views/Feedback.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,11 @@ const routes = [
     component: Videos,
     props: true
   },
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: Feedback
+  }
 ]
 
 const router = new VueRouter({

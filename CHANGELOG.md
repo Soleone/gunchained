@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.2.6
+
+- Submit Feedback function
+- Update welcome screen copy
+- Enlarge video on show page
+
 ### 0.2.5
 
 - Video show page with linkable url

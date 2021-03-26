@@ -1,4 +1,4 @@
-export const VERSION = '0.2.5'
+export const VERSION = '0.2.6'
 
 export const FUNDAMENTALS = 'fundamentals'
 export const DECKS = 'decks'

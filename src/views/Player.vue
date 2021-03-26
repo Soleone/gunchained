@@ -96,7 +96,7 @@
       <v-row>
         <v-spacer></v-spacer>
         <v-col class="d-flex justify-center">
-          <v-btn @click="updatePlayer()" color="success">
+          <v-btn @click="updatePlayer()" color="primary">
             <v-icon left>mdi-content-save</v-icon> Save
           </v-btn>
         </v-col>

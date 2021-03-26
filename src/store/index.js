@@ -177,6 +177,24 @@ export default new Vuex.Store({
         dispatch('setCurrentVideo', currentVideo)
       })
     },
+    submitFeedback({ dispatch }, feedback) {
+      feedback.addedAt = firebase.firestore.FieldValue.serverTimestamp()
+      store
+        .collection('feedbacks')
+        .add(feedback)
+        .then(() => {
+          dispatch('setStatus', {
+            message: 'Feedback submitted. Thank you!'
+          })
+        })
+        .catch(response => {
+          dispatch('setStatus', {
+            message: 'Failed to submit feedback!',
+            color: 'error'
+          })
+          console.log(response)
+        })
+    },
     createChallenge({ commit }, challenge) {
       commit('createChallenge', challenge)
     },

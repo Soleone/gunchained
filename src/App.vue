@@ -67,21 +67,22 @@
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" fixed temporary right width="300">
+      <span v-for="(section, index) in navigation" :key="index">
+        <v-list dense nav>
+          <v-list-item v-for="link in section" link :to="link.route" :key="link.label">
+            <v-list-item-icon>
+              <v-icon>{{ link.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ link.label }} </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        <v-divider></v-divider>
+      </span>
+
       <v-list dense nav>
-        <v-list-item v-for="link in navigation" link :to="link.route" :key="link.label">
-          <v-list-item-icon>
-            <v-icon>{{ link.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ link.label }} </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-
-      <v-divider></v-divider>
-
-      <v-list>
         <v-list-item link to="/login" v-if="!user">
           <v-list-item-icon>
             <v-icon>mdi-login</v-icon>
@@ -190,16 +191,25 @@ export default {
       version: VERSION,
       drawer: false,
       navigation: [
-        {
-          label: 'Arena',
-          icon: 'mdi-fencing',
-          route: '/arena',
-        },
-        {
-          label: 'Videos',
-          icon: 'mdi-video',
-          route: '/videos'
-        }
+        [
+          {
+            label: 'Arena',
+            icon: 'mdi-fencing',
+            route: { name: 'Arena'},
+          }
+        ],
+        [
+          {
+            label: 'Videos',
+            icon: 'mdi-youtube',
+            route: { name: 'Videos' }
+          },
+          {
+            label: 'Suggest video',
+            icon: 'mdi-message-plus-outline',
+            route: { name: 'Feedback' }
+          }
+        ]
       ]
     }
   },
