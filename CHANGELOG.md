@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.2.5
+
+- Video show page with linkable url
+- Video editing for admin role
+- Load optimizations by only loading Youtube embed iframe when on show page, and in list view only display thumbnail image
+
 ### 0.2.4
 
 - Add Welcome page
