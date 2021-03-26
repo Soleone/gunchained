@@ -25,6 +25,7 @@ None of this is guaranteed to be worked on by anyone.
 
 #### Normal Priority
 
+- Video pagination
 - Video counter for each category
 - Public profile view (linked in published challenge)
 - Detailed descriptions for Challenges and Player profiles

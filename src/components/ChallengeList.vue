@@ -4,7 +4,7 @@
       <v-spacer></v-spacer>
       <v-col cols="12" :lg="columnSizeLg">
         <v-alert v-if="!user" type="info" text>
-          Sign in on the top left
+          Sign in on the top right
           <span class="d-none d-sm-inline">
             to share your challenge code.
           </span>
@@ -44,7 +44,7 @@
           </v-card-title>
           <v-card-subtitle>
             Be the first, you can edit your profile to customize your challenge
-            and set yourself available.
+            and set yourself to available.
           </v-card-subtitle>
         </v-card>
       </v-col>

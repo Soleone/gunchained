@@ -19,12 +19,13 @@
 
     <v-row class="text-body-1">
       <v-col cols="5" class="red lighten-5 rounded">
-        <p>You can either visit the <v-icon small>mdi-fencing</v-icon> <a href="/arena"> Arena</a> and find other players to play against.</p>
-        <p>To use this feature and share your invite code you will have to <a href="/login">sign in</a> first to be able to fill out your <a href="/player">player profile</a>.</p>
+        <p>Visit the <v-icon small>mdi-fencing</v-icon> <a href="/arena" class="font-weight-medium"> Arena</a> and find other players to play against.</p>
+        <p>Useful for casual matches or organizing a tournament setting.</p>
+        <p>To share your invite code you will have to <a href="/login">sign in</a> first to be able to fill out your <a href="/player">player profile</a>.</p>
       </v-col>
       <v-spacer></v-spacer>
       <v-col cols="5" class="green lighten-5 rounded">
-        <p>Or you can visit the <v-icon small>mdi-video</v-icon> <a href="/videos">Video</a> library to find educational and entertaining content from community creators.</p>
+        <p>Or you can visit the <v-icon small>mdi-video</v-icon> <a href="/videos" class="font-weight-medium">Video</a> library to find educational and entertaining content from community creators.</p>
       </v-col>
     </v-row>
   </v-container>

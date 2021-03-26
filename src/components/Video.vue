@@ -8,16 +8,17 @@
       By
       <a href="#" @click.prevent="visitAuthor(video.author)">{{ video.author }}</a>
     </v-card-subtitle>
+
     <iframe v-if="showEmbed"
             class="mx-2"
             :width="width"
             :height="height"
             :src="embedUrl"
             frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            allow="accelerometer; fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
-    <v-img v-if="!showEmbed" class="mx-2 mb-2" :src="video.imageUrl">
-    </v-img>
+    <v-img v-if="!showEmbed" class="mx-2 mb-2" :src="video.imageUrl"></v-img>
+
     <v-card-text class="py-0 pb-2 d-flex justify-space-between align-center">
       <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${video.category}`">
         {{ categoryObject.label() }}
@@ -80,16 +81,19 @@ export default {
       return this.video.url.replace('/watch?v=', '/embed/')
     },
     width() {
-      return this.currentDimensions.width
+      return this.currentDimensions.width * this.dimensionsModifier
     },
     height() {
-      return this.currentDimensions.height
+      return this.currentDimensions.height * this.dimensionsModifier
     },
     cardWidth() {
       return this.width + 12
     },
     currentDimensions() {
       return this.$vuetify.breakpoint.lgAndUp ? this.dimensions['lg'] : this.dimensions['sm']
+    },
+    dimensionsModifier() {
+      return this.showEmbed && this.$vuetify.breakpoint.lgAndUp ? 1.75 : 1
     },
     categoryObject() {
       return new Category(this.video.category)
