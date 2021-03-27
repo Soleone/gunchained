@@ -77,8 +77,8 @@ export default {
     }
   },
   methods: {
-    fetchMetadata(callback) {
-      const url = `${this.baseURL}&url=${this.url}`
+    fetchMetadata() {
+      const url = `${this.baseURL}&url=${this.video.url}`
       console.log(`Fetching Youtube metadata for url = ${url}`)
       axios.get(url).then(response => {
         console.log(response)
@@ -86,7 +86,6 @@ export default {
         this.author = data['author_name']
         this.title = data['title']
         this.imageUrl = data['thumbnail_url']
-        callback && callback()
       })
     },
     fetchVideo() {
@@ -95,18 +94,15 @@ export default {
         const video = doc.data()
         console.log("Received video information from db, setting URL")
         this.url = video.url
-        this.fetchMetadata(() => {
-          console.log("Setting remaining video information from db")
-          this.author = video.author
-          this.title = video.title
-          this.category = video.category
-          this.description = video.description
-          this.addedAt = video.addedAt
+        this.author = video.author
+        this.title = video.title
+        this.category = video.category
+        this.description = video.description
+        this.addedAt = video.addedAt
 
-          if (video.imageUrl) {
-            this.imageUrl = video.imageUrl
-          }
-        })
+        if (video.imageUrl) {
+          this.imageUrl = video.imageUrl
+        }
       })
     },
     create() {
