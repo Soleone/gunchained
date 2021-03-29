@@ -5,6 +5,7 @@ import { store } from '@/plugins/firebase'
 import Player from '@/models/player'
 import Challenge from '@/models/challenge'
 import firebase from 'firebase/app'
+import { FEEDBACK_STATUS_SUBMITTED } from '@/constants/constants.js'
 
 Vue.use(Vuex)
 
@@ -179,6 +180,7 @@ export default new Vuex.Store({
     },
     submitFeedback({ dispatch }, feedback) {
       feedback.addedAt = firebase.firestore.FieldValue.serverTimestamp()
+      feedback.status = FEEDBACK_STATUS_SUBMITTED
       store
         .collection('feedbacks')
         .add(feedback)

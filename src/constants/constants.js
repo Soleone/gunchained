@@ -1,5 +1,6 @@
 export const VERSION = '0.2.6'
 
+// Video
 export const FUNDAMENTALS = 'fundamentals'
 export const DECKS = 'decks'
 export const CARDS = 'cards'
@@ -18,4 +19,15 @@ export const CATEGORIES = [
   PATCH_NOTES,
   FUN,
   OTHER
+]
+
+// Feedback
+export const FEEDBACK_STATUS_SUBMITTED = 'submitted'
+export const FEEDBACK_STATUS_READ = 'read'
+export const FEEDBACK_STATUS_COMPLETED = 'completed'
+
+export const FEEDBACK_STATUSES = [
+  FEEDBACK_STATUS_SUBMITTED,
+  FEEDBACK_STATUS_READ,
+  FEEDBACK_STATUS_COMPLETED,
 ]
