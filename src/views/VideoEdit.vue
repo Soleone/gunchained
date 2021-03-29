@@ -45,13 +45,15 @@ export default {
   data() {
     return {
       baseURL: "https://www.youtube.com/oembed?format=json",
-      url: null,
-      author: null,
-      title: null,
-      category: null,
-      description: null,
-      imageUrl: "/placeholder_image.png",
-      addedAt: null
+      video: {
+        url: null,
+        author: null,
+        title: null,
+        category: null,
+        description: null,
+        imageUrl: "/placeholder_image.png",
+        addedAt: null
+      }
     }
   },
   mounted() {
@@ -63,45 +65,31 @@ export default {
     ...mapGetters(['isUserAdmin']),
     categories() {
       return CATEGORIES
-    },
-    video() {
-      return {
-        url: this.url,
-        author: this.author,
-        title: this.title,
-        category: this.category,
-        description: this.description,
-        imageUrl: this.imageUrl,
-        addedAt: this.addedAt
-      }
     }
   },
   methods: {
     fetchMetadata() {
       const url = `${this.baseURL}&url=${this.video.url}`
-      console.log(`Fetching Youtube metadata for url = ${url}`)
       axios.get(url).then(response => {
         console.log(response)
         const data = response.data
-        this.author = data['author_name']
-        this.title = data['title']
-        this.imageUrl = data['thumbnail_url']
+        this.video.author = data['author_name']
+        this.video.title = data['title']
+        this.video.imageUrl = data['thumbnail_url']
       })
     },
     fetchVideo() {
-      console.log("Fetching video information from db")
       store.collection('videos').doc(this.id).get().then((doc) => {
         const video = doc.data()
-        console.log("Received video information from db, setting URL")
-        this.url = video.url
-        this.author = video.author
-        this.title = video.title
-        this.category = video.category
-        this.description = video.description
-        this.addedAt = video.addedAt
+        this.video.url = video.url
+        this.video.author = video.author
+        this.video.title = video.title
+        this.video.category = video.category
+        this.video.description = video.description
+        this.video.addedAt = video.addedAt
 
         if (video.imageUrl) {
-          this.imageUrl = video.imageUrl
+          this.video.imageUrl = video.imageUrl
         }
       })
     },
