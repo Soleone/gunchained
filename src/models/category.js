@@ -5,28 +5,31 @@ import {
   TRADING,
   PATCH_NOTES,
   FUNDAMENTALS,
+  GAMEPLAY,
   FUN,
   OTHER
  } from '@/constants/constants.js'
 
 const CATEGORY_LABELS = {
-  [STRATEGY]: 'Strategy',
+  [FUNDAMENTALS]: 'Fundamentals',
   [DECKS]: 'Decks',
   [CARDS]: 'Cards',
+  [STRATEGY]: 'Strategy',
   [TRADING]: 'Trading',
   [PATCH_NOTES]: 'Patch Notes',
-  [FUNDAMENTALS]: 'Fundamentals',
+  [GAMEPLAY]: 'Gameplay',
   [FUN]: 'Fun',
   [OTHER]: 'Other'
 }
 
 const COLORS = {
-  [STRATEGY]: 'blue',
+  [FUNDAMENTALS]: 'teal',
   [DECKS]: 'orange',
   [CARDS]: 'yellow',
+  [STRATEGY]: 'blue',
   [TRADING]: 'lime',
   [PATCH_NOTES]: 'red',
-  [FUNDAMENTALS]: 'teal',
+  [GAMEPLAY]: 'brown lighten-2',
   [FUN]: 'purple',
   [OTHER]: 'grey'
 }
@@ -36,7 +39,8 @@ const DARK_COLORS = [
   'teal',
   'red',
   'purple',
-  'grey'
+  'grey',
+  'brown lighten-2'
 ]
 
 export default class Category {
