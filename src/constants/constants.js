@@ -7,6 +7,7 @@ export const CARDS = 'cards'
 export const STRATEGY = 'strategy'
 export const TRADING = 'trading'
 export const PATCH_NOTES = 'patch notes'
+export const GAMEPLAY = 'gameplay'
 export const FUN = 'fun'
 export const OTHER = 'other'
 
@@ -17,6 +18,7 @@ export const CATEGORIES = [
   STRATEGY,
   TRADING,
   PATCH_NOTES,
+  GAMEPLAY,
   FUN,
   OTHER
 ]
