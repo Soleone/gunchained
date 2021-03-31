@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.9
+
+- Add tracking to Home screen and slight redesign using buttons for primary navigation
+
 ### 0.2.8
 
 - Add more anonymous Google Analytics metrics to track which features of the site are being used

@@ -19,14 +19,37 @@
 
     <v-row class="text-body-1">
       <v-spacer></v-spacer>
-      <v-col cols="5" class="red lighten-5 rounded">
-        <p>Visit the <v-icon small>mdi-fencing</v-icon> <a href="/arena" class="font-weight-medium"> Arena</a> and find other players to play against.</p>
-        <p>Useful for casual matches or organizing a tournament setting.</p>
-        <p>To share your invite code you will have to <a href="/login">sign in</a> first to be able to fill out your <a href="/player">player profile</a>.</p>
+      <v-col cols="5" class="green lighten-5 rounded">
+        <p>
+          <GATrack event-name="navigationClickedFromHome" event-label="Arena">
+            <v-btn color="success" to="/arena"><v-icon left>mdi-fencing</v-icon> Arena</v-btn>
+          </GATrack>
+        </p>
+        <p>
+          Find other players to play against. Useful for casual matches or organizing a tournament setting.
+        </p>
+        <p>
+          To share your invite code you will have to
+          <GATrack event-name="navigationClickedFromHome" event-label="Sign in">
+            <a href="/login">sign in</a>
+          </GATrack>
+          first to be able to fill out your
+          <GATrack event-name="navigationClickedFromHome" event-label="Player profile">
+            <a href="/player">player profile</a>
+          </GATrack>
+          .
+        </p>
       </v-col>
       <v-spacer></v-spacer>
-      <v-col cols="5" class="green lighten-5 rounded">
-        <p>Or you can visit the <v-icon small>mdi-youtube</v-icon> <a href="/videos" class="font-weight-medium">Video</a> library to find educational and entertaining content from community creators.</p>
+      <v-col cols="5" class="red lighten-5 rounded">
+        <p>
+          <GATrack event-name="navigationClickedFromHome" event-label="Videos">
+            <v-btn color="error" to="/videos"><v-icon left>mdi-youtube</v-icon> Videos</v-btn>
+          </GATrack>
+        </p>
+        <p>
+          Find educational and entertaining content from community creators.
+        </p>
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
@@ -34,8 +57,13 @@
 </template>
 
 <script>
+import GATrack from '@/components/shared/GATrack.js'
+
 export default {
   name: 'Home',
+  components: {
+    GATrack
+  },
   mounted() {
     this.$store.dispatch('setTitle', 'Home')
   },

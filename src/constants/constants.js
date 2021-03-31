@@ -1,4 +1,4 @@
-export const VERSION = '0.2.8'
+export const VERSION = '0.2.9'
 
 // Video
 export const FUNDAMENTALS = 'fundamentals'

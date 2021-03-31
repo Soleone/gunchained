@@ -45,7 +45,7 @@
           <v-btn class="error" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">
             <v-icon left>mdi-youtube</v-icon> Subscribe
           </v-btn>
-          <v-chip class="ml-2" label outlined v-if="this.$vuetify.breakpoint.lgAndUp" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">Support the author on Youtube</v-chip>
+          <v-chip label v-if="this.$vuetify.breakpoint.lgAndUp" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">Support the author on Youtube</v-chip>
         </span>
       </GATrack>
     </div>
