@@ -45,7 +45,7 @@ const routes = [
   },
   {
     path: '/upload',
-    name: 'VideoEdit',
+    name: 'VideoUpload',
     component: VideoEdit
   },
   {

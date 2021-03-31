@@ -15,6 +15,7 @@ Vue.use(
   router
 )
 Vue.use(firestorePlugin)
+
 Vue.config.productionTip = false
 
 // DayJS

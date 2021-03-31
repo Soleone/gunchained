@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.7
+
+- Add subscribe button to video show page
+
 ### 0.2.6
 
 - Submit Feedback function

@@ -163,29 +163,6 @@ export default {
     Tooltip,
     FooterBtn
   },
-  computed: {
-    ...mapState(['user', 'app', 'status', 'title']),
-    ...mapGetters(['appStatus', 'isAvailableEnabled']),
-    ...mapGetters({
-      player: 'playerObject'
-    }),
-    activeUserCount() {
-      return this.app?.activeUserCount || 0
-    },
-    pluralizedUserString() {
-      return this.activeUserCount === 1 ? 'user' : 'users'
-    }
-  },
-  created() {
-    console.log('[App] Loading App component')
-    firebase.auth().onAuthStateChanged(authUser => {
-      if (authUser) {
-        console.log('[App] onAuthStateChanged authuser', authUser.uid)
-        const user = User.fromAuthHash(authUser)
-        this.$store.dispatch('setUser', user)
-      }
-    })
-  },
   data() {
     return {
       version: VERSION,
@@ -212,6 +189,29 @@ export default {
         ]
       ]
     }
+  },
+  computed: {
+    ...mapState(['user', 'app', 'status', 'title']),
+    ...mapGetters(['appStatus', 'isAvailableEnabled']),
+    ...mapGetters({
+      player: 'playerObject'
+    }),
+    activeUserCount() {
+      return this.app?.activeUserCount || 0
+    },
+    pluralizedUserString() {
+      return this.activeUserCount === 1 ? 'user' : 'users'
+    }
+  },
+  created() {
+    console.log('[App] Loading App component')
+    firebase.auth().onAuthStateChanged(authUser => {
+      if (authUser) {
+        console.log('[App] onAuthStateChanged authuser', authUser.uid)
+        const user = User.fromAuthHash(authUser)
+        this.$store.dispatch('setUser', user)
+      }
+    })
   },
   methods: {
     logout() {
