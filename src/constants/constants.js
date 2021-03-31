@@ -37,11 +37,11 @@ export const FEEDBACK_STATUSES = [
 // Authors
 export const CHANNELS_BY_AUTHOR = {
   'CopperPitch': 'https://www.youtube.com/c/copperpitch',
-  'Puzzle6': 'https://www.youtube.com/channel/UC7fMQlWcusnWDeebro-3jYg',
-  'Black Gaston': 'https://www.youtube.com/channel/UCcz03gAgR9mZndQnXBMpiPw',
-  'Merchant': 'https://www.youtube.com/channel/UC3ZqFbpwxyp-sseip6nD9Iw',
+  'TheProfesserf': 'https://www.youtube.com/c/theprofesserf',
   'TeamStreamTeam': 'https://www.youtube.com/channel/UC-j8M7RvMzIbSqWIEhqT8Sg',
+  'TONYQRACER': 'https://www.youtube.com/c/TONYQRACER',
+  'Black Gaston': 'https://www.youtube.com/channel/UCcz03gAgR9mZndQnXBMpiPw',
+  'Puzzle6': 'https://www.youtube.com/channel/UC7fMQlWcusnWDeebro-3jYg',
   'Pax Unchained': 'https://www.youtube.com/channel/UCocmw-0NY4xwPd3UYMEud7A',
-  'TheProfessorf': 'https://www.youtube.com/channel/UCe9YS1rBvh4KawZ22li_h9Q',
-  'TONYQRACER': 'https://www.youtube.com/channel/UC9WuxA-4EhGYhQ2VcgDWPQA',
+  'Merchant': 'https://www.youtube.com/c/MerchantTV',
 }
