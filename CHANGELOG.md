@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.8
+
+- Add more anonymous Google Analytics metrics to track which features of the site are being used
+
 ### 0.2.7
 
 - Add subscribe button to video show page

@@ -13,25 +13,29 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-chip class="mr-1 mb-2" to="/videos" :label="!videoCategory">
-          All
-        </v-chip>
+        <GATrack event-name="clickCategoryFromList" event-label="All">
+          <v-chip class="mr-1 mb-2" to="/videos" :label="!videoCategory">
+            All
+          </v-chip>
+        </GATrack>
 
-        <v-chip v-for="category in categories"
-                class="mr-1 mb-2"
-                :dark="categoryObject(category).isDarkColor()"
-                :color="categoryObject(category).color()"
-                :to="`/videos/categories/${category}`"
-                :label="videoCategory === category"
-                :key="category">
-          {{ categoryObject(category).label() }}
-        </v-chip>
+        <GATrack v-for="category in categories" event-name="clickCategoryFromList" :event-label="category" :key="category">
+          <v-chip class="mr-1 mb-2"
+                  :dark="categoryObject(category).isDarkColor()"
+                  :color="categoryObject(category).color()"
+                  :to="`/videos/categories/${category}`"
+                  :label="videoCategory === category">
+            {{ categoryObject(category).label() }}
+          </v-chip>
+        </GATrack>
       </v-col>
     </v-row>
 
     <v-row>
       <v-col cols="12" lg="6" xl="4" v-for="video in videos" :key="video.id">
-        <Video :id="video.id" :video="video" :showEmbed="false" />
+        <GATrack event-name="videoClickedFromList" :event-label="video.title">
+          <Video :id="video.id" :video="video" :showEmbed="false" />
+        </GATrack>
       </v-col>
     </v-row>
   </v-container>
@@ -42,11 +46,13 @@ import Video from '@/components/Video.vue'
 import { mapState } from 'vuex'
 import { CATEGORIES } from '@/constants/constants.js'
 import Category from '@/models/category.js'
+import GATrack from '@/components/shared/GATrack.js'
 
 export default {
   name: 'Videos',
   components: {
-    Video
+    Video,
+    GATrack
   },
   props: {
     category: {

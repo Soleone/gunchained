@@ -1,30 +1,35 @@
 <template>
   <div class="flex flex-column">
     <div :class="{ 'mb-4': showEmbed }">
-      <v-card class="mx-auto" :max-width="cardWidth" :to="`/videos/${id}`">
+      <v-card class="mx-auto" :max-width="cardWidth" :to="`/videos/${id}`" :ripple="!showEmbed">
         <v-card-title class="text-subtitle-1 flex justify-space-between">
           <span>{{ video.title }}</span>
           <v-btn v-if="isUserAdmin" icon :to="`/videos/edit/${id}`"><v-icon>mdi-pencil</v-icon></v-btn>
         </v-card-title>
         <v-card-subtitle>
           By
-          <a href="#" @click.prevent="visitAuthor(video.author)">{{ video.author }}</a>
+          <GATrack event-name="clickAuthor" :event-label="video.author">
+            <a href="#" @click.prevent="visitAuthor(video.author)">{{ video.author }}</a>
+          </GATrack>
         </v-card-subtitle>
 
-        <iframe v-if="showEmbed"
-                class="mx-2"
-                :width="width"
-                :height="height"
-                :src="embedUrl"
-                frameborder="0"
-                allow="accelerometer; fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-        </iframe>
+        <GATrack event-name="videoClicked" v-if="showEmbed">
+          <iframe class="mx-2"
+                  :width="width"
+                  :height="height"
+                  :src="embedUrl"
+                  frameborder="0"
+                  allow="accelerometer; fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+          </iframe>
+        </GATrack>
         <v-img v-if="!showEmbed" class="mx-2 mb-2" :src="video.imageUrl"></v-img>
 
         <v-card-text class="py-0 pb-2 d-flex justify-space-between align-center">
-          <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${video.category}`">
-            {{ categoryObject.label() }}
-          </v-chip>
+          <GATrack event-name="clickCategoryFromVideo" :event-label="video.category">
+            <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${video.category}`">
+              {{ categoryObject.label() }}
+            </v-chip>
+          </GATrack>
           <Tooltip tooltip="When this video was added to Gunchained. Typically not when it was created." top>
             <v-chip outlined>
               <v-icon left>mdi-clock-outline</v-icon>
@@ -35,10 +40,14 @@
       </v-card>
     </div>
     <div v-if="showEmbed" class="flex justify-center justify-lg-space-around text-center">
-      <v-btn class="error" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">
-        <v-icon left>mdi-youtube</v-icon> Subscribe
-      </v-btn>
-      <v-chip class="ml-2" label outlined v-if="this.$vuetify.breakpoint.lgAndUp" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">Support the author on Youtube</v-chip>
+      <GATrack event-name="subscribeToAuthor" :event-label="video.author">
+        <span>
+          <v-btn class="error" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">
+            <v-icon left>mdi-youtube</v-icon> Subscribe
+          </v-btn>
+          <v-chip class="ml-2" label outlined v-if="this.$vuetify.breakpoint.lgAndUp" :href="`${channelUrl}?sub_confirmation=1`" target="youtube">Support the author on Youtube</v-chip>
+        </span>
+      </GATrack>
     </div>
   </div>
 </template>
@@ -52,11 +61,13 @@ import { mapGetters } from 'vuex'
 import { CHANNELS_BY_AUTHOR } from '@/constants/constants.js'
 import Category from '@/models/category.js'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
+import GATrack from '@/components/shared/GATrack.js'
 
 export default {
   name: 'Video',
   components: {
-    Tooltip
+    Tooltip,
+    GATrack
   },
   props: {
     id: {

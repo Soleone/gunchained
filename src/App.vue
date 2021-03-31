@@ -69,15 +69,17 @@
     <v-navigation-drawer v-model="drawer" fixed temporary right width="300">
       <span v-for="(section, index) in navigation" :key="index">
         <v-list dense nav>
-          <v-list-item v-for="link in section" link :to="link.route" :key="link.label">
-            <v-list-item-icon>
-              <v-icon>{{ link.icon }}</v-icon>
-            </v-list-item-icon>
+          <GATrack v-for="link in section" link :key="link.label" event-name="navigationClicked" :event-label="link.label">
+            <v-list-item link :to="link.route">
+              <v-list-item-icon>
+                <v-icon>{{ link.icon }}</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ link.label }} </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{ link.label }} </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </GATrack>
         </v-list>
         <v-divider></v-divider>
       </span>
@@ -156,12 +158,14 @@ import User from '@/models/user'
 import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
 import { VERSION } from '@/constants/constants.js'
+import GATrack from '@/components/shared/GATrack.js'
 
 export default {
   name: 'App',
   components: {
     Tooltip,
-    FooterBtn
+    FooterBtn,
+    GATrack
   },
   data() {
     return {
