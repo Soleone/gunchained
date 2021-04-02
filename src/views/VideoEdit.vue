@@ -15,6 +15,10 @@
             <v-select label="Category" :items="categories" v-model="video.category"></v-select>
 
             <v-textarea label="Description" v-model="video.description"></v-textarea>
+
+            <v-text-field label="Published at" v-model="video.publishedAt" required></v-text-field>
+
+            <v-text-field label="Youtube API Key" v-model="apiKey" type="password" @change="storeInLocalStorage" required></v-text-field>
           </v-card-text>
           <v-card-actions class="flex justify-space-between">
             <v-btn v-if="!id" color="success" @click="create">Create</v-btn>
@@ -33,6 +37,7 @@ import { mapGetters } from 'vuex'
 import axios from 'axios'
 import { CATEGORIES } from '@/constants/constants.js'
 import { store } from '@/plugins/firebase'
+import dayjs from 'dayjs'
 
 export default {
   name: 'VideoEdit',
@@ -45,6 +50,8 @@ export default {
   data() {
     return {
       baseURL: "https://www.youtube.com/oembed?format=json",
+      youtubeAPIBaseUrl: "https://www.googleapis.com/youtube/v3/videos",
+      apiKey: null,
       video: {
         url: null,
         author: null,
@@ -52,7 +59,8 @@ export default {
         category: null,
         description: null,
         imageUrl: "/placeholder_image.png",
-        addedAt: null
+        addedAt: null,
+        publishedAt: null
       }
     }
   },
@@ -60,22 +68,35 @@ export default {
     if (this.id) {
       this.fetchVideo()
     }
+
+    const youtubeApiKey = localStorage.getItem('youtube-api-key')
+    if (youtubeApiKey) {
+      this.apiKey = youtubeApiKey
+    }
   },
   computed: {
     ...mapGetters(['isUserAdmin']),
     categories() {
       return CATEGORIES
+    },
+    videoId() {
+      return this.video.url.replace('https://www.youtube.com/watch?v=', '').replace("https://youtu.be/", '')
     }
   },
   methods: {
     fetchMetadata() {
-      const url = `${this.baseURL}&url=${this.video.url}`
+      const videoId = this.videoId
+      console.log("Looking up metadata from Youtube for video id", videoId)
+      const url = `${this.youtubeAPIBaseUrl}?part=snippet,statistics&key=${this.apiKey}&id=${videoId}`
       axios.get(url).then(response => {
         console.log(response)
         const data = response.data
-        this.video.author = data['author_name']
-        this.video.title = data['title']
-        this.video.imageUrl = data['thumbnail_url']
+        const videoData = response.data.items[0]
+        this.video.author = videoData.snippet.channelTitle
+        this.video.title = videoData.snippet.title
+        this.video.imageUrl = videoData.snippet.thumbnails['standard'].url
+        this.video.description = videoData.snippet.description
+        this.video.publishedAt = dayjs(videoData.snippet.publishedAt).toDate()
       })
     },
     fetchVideo() {
@@ -88,6 +109,9 @@ export default {
         this.video.description = video.description
         this.video.addedAt = video.addedAt
 
+        if (video.publishedAt) {
+          this.video.publishedAt = dayjs(video.publishedAt).toDate()
+        }
         if (video.imageUrl) {
           this.video.imageUrl = video.imageUrl
         }
@@ -102,6 +126,9 @@ export default {
     destroy() {
       this.$store.dispatch('deleteVideo', this.id)
       this.$router.push({ name: 'Videos' })
+    },
+    storeInLocalStorage() {
+      window.localStorage.setItem('youtube-api-key', this.apiKey)
     }
   }
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.10
+
+- Fetch published date from Youtube API and use it to sort video list by
+
 ### 0.2.9
 
 - Add tracking to Home screen and slight redesign using buttons for primary navigation

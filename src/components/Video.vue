@@ -31,9 +31,8 @@
             </v-chip>
           </GATrack>
           <Tooltip tooltip="When this video was added to Gunchained. Typically not when it was created." top>
-            <v-chip outlined>
-              <v-icon left>mdi-clock-outline</v-icon>
-              {{ addedAtFormatted }}
+            <v-chip outlined label>
+              {{ publishedAtFormatted }}
             </v-chip>
           </Tooltip>
         </v-card-text>
@@ -120,8 +119,8 @@ export default {
     categoryObject() {
       return new Category(this.video.category)
     },
-    addedAtFormatted() {
-      return dayjs(this.video.addedAt.toDate()).format('DD/MM/YYYY')
+    publishedAtFormatted() {
+      return dayjs(this.video.publishedAt.toDate()).format('MMM DD, YYYY')
     },
     channelUrl() {
       return CHANNELS_BY_AUTHOR[this.video.author]

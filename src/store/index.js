@@ -91,6 +91,7 @@ export default new Vuex.Store({
     },
     createVideo({ dispatch }, video) {
       video.addedAt = firebase.firestore.FieldValue.serverTimestamp()
+      video.publishedAt = firebase.firestore.Timestamp.fromDate(video.publishedAt)
       store
         .collection('videos')
         .add(video)
@@ -109,6 +110,7 @@ export default new Vuex.Store({
     },
     updateVideo({ dispatch }, { id, video }) {
       console.log("Updating video", id, video)
+      video.publishedAt = firebase.firestore.Timestamp.fromDate(video.publishedAt)
       store
         .collection('videos')
         .doc(id)
@@ -173,6 +175,7 @@ export default new Vuex.Store({
           category: video.category,
           description: video.description,
           addedAt: video.addedAt,
+          publishedAt: video.publishedAt,
           imageUrl: video.imageUrl
         }
         dispatch('setCurrentVideo', currentVideo)
@@ -243,7 +246,7 @@ export default new Vuex.Store({
       })
     }),
     bindVideosRef: firestoreAction(({ bindFirestoreRef, state }) => {
-      let query = store.collection('videos').orderBy('addedAt', 'desc')
+      let query = store.collection('videos').orderBy('publishedAt', 'desc')
       if (state.videoCategory) {
         query = query.where('category', '==', state.videoCategory)
       }
