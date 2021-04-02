@@ -216,6 +216,7 @@ export default {
         this.$store.dispatch('setUser', user)
       }
     })
+    this.$store.dispatch('bindAppRef')
   },
   methods: {
     logout() {
@@ -252,7 +253,6 @@ export default {
         if (!this.user) return
 
         console.log('[Player] User was set. Trying to bind App and Player ref')
-        this.$store.dispatch('bindAppRef')
         this.$store.dispatch('bindPlayerRef')
       }
     }
