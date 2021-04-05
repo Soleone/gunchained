@@ -57,13 +57,11 @@ import dayjs from 'dayjs'
 import { mapGetters } from 'vuex'
 import { CHANNELS_BY_AUTHOR } from '@/constants/constants.js'
 import Category from '@/models/category.js'
-import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import GATrack from '@/components/shared/GATrack.js'
 
 export default {
   name: 'Video',
   components: {
-    Tooltip,
     GATrack
   },
   props: {
