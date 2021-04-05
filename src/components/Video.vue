@@ -30,11 +30,9 @@
               {{ categoryObject.label() }}
             </v-chip>
           </GATrack>
-          <Tooltip tooltip="When this video was added to Gunchained. Typically not when it was created." top>
-            <v-chip outlined label>
-              {{ publishedAtFormatted }}
-            </v-chip>
-          </Tooltip>
+          <v-chip outlined label>
+            {{ publishedAtFormatted }}
+          </v-chip>
         </v-card-text>
       </v-card>
     </div>

@@ -44,4 +44,5 @@ export const CHANNELS_BY_AUTHOR = {
   'Puzzle6': 'https://www.youtube.com/channel/UC7fMQlWcusnWDeebro-3jYg',
   'Pax Unchained': 'https://www.youtube.com/channel/UCocmw-0NY4xwPd3UYMEud7A',
   'Merchant': 'https://www.youtube.com/c/MerchantTV',
+  'LionUnchained': 'https://www.youtube.com/channel/UCL_alzGOKz6hQl7UNa0mnzw',
 }
