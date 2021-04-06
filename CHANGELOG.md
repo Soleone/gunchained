@@ -1,5 +1,8 @@
 # Changelog
 
+### 0.2.11
+
+- Add RSS feed link for video subscriptions
 ### 0.2.10
 
 - Fetch published date from Youtube API and use it to sort video list by
