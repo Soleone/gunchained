@@ -104,7 +104,7 @@ export default {
       return new Category(category)
     },
     visitRSS() {
-      window.location.href = 'http://localhost:8080/feed.xml'
+      window.location.href = '/feed.xml'
     }
   },
   head: {
