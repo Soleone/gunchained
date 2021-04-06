@@ -12,7 +12,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col cols="12" lg="10">
         <GATrack event-name="clickCategoryFromList" event-label="All">
           <v-chip class="mr-1 mb-2" to="/videos" :label="!videoCategory">
             All
@@ -28,6 +28,14 @@
             {{ categoryObject(category).label() }}
           </v-chip>
         </GATrack>
+      </v-col>
+      <v-col class="text-lg-right">
+        <v-chip label outlined @click="visitRSS()">
+          <v-avatar left tile>
+            <v-img src="/rss.svg"></v-img>
+          </v-avatar>
+          Subscribe via RSS
+        </v-chip>
       </v-col>
     </v-row>
 
@@ -94,7 +102,20 @@ export default {
   methods: {
     categoryObject(category) {
       return new Category(category)
+    },
+    visitRSS() {
+      window.location.href = 'http://localhost:8080/feed.xml'
     }
+  },
+  head: {
+    link: [
+      {
+        rel: 'alternate',
+        type: 'application/rss+xml',
+        title: 'Gunchained videos feed',
+        href: '/feed.xml'
+      }
+    ]
   }
 }
 </script>

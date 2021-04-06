@@ -5,6 +5,7 @@ import store from './store'
 import { firestorePlugin } from 'vuefire'
 import vuetify from './plugins/vuetify'
 import VueGtag from 'vue-gtag'
+import VueHead from 'vue-head'
 import { config } from '@/../firebase.config.js'
 
 Vue.use(
@@ -15,6 +16,7 @@ Vue.use(
   router
 )
 Vue.use(firestorePlugin)
+Vue.use(VueHead)
 
 Vue.config.productionTip = false
 
