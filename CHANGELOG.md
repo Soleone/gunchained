@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.12
+
+- Add Esports and Interview categories
+
 ### 0.2.11
 
 - Add RSS feed link for video subscriptions

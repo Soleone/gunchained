@@ -1,4 +1,4 @@
-export const VERSION = '0.2.11'
+export const VERSION = '0.2.12'
 
 // Video
 export const FUNDAMENTALS = 'fundamentals'
@@ -7,6 +7,8 @@ export const CARDS = 'cards'
 export const STRATEGY = 'strategy'
 export const TRADING = 'trading'
 export const PATCH_NOTES = 'patch notes'
+export const INTERVIEW = 'interview'
+export const ESPORTS = 'esports'
 export const GAMEPLAY = 'gameplay'
 export const FUN = 'fun'
 export const OTHER = 'other'
@@ -18,6 +20,8 @@ export const CATEGORIES = [
   STRATEGY,
   TRADING,
   PATCH_NOTES,
+  INTERVIEW,
+  ESPORTS,
   GAMEPLAY,
   FUN,
   OTHER
@@ -46,4 +50,5 @@ export const CHANNELS_BY_AUTHOR = {
   'Merchant': 'https://www.youtube.com/c/MerchantTV',
   'LionUnchained': 'https://www.youtube.com/channel/UCL_alzGOKz6hQl7UNa0mnzw',
   'Rogvarok': 'https://www.youtube.com/channel/UCdaFKgefAytNPi-kmPOQcaw',
+  'Fakemews9': 'https://www.youtube.com/channel/UCbopgNya6aLhYi6GE8mNMvw',
 }

@@ -94,7 +94,10 @@ export default {
         const videoData = response.data.items[0]
         this.video.author = videoData.snippet.channelTitle
         this.video.title = videoData.snippet.title
-        this.video.imageUrl = videoData.snippet.thumbnails['standard'].url
+        const thumbnail = videoData.snippet.thumbnails['standard']
+        if (thumbnail) {
+          this.video.imageUrl = thumbnail.url
+        }
         this.video.description = videoData.snippet.description
         this.video.publishedAt = dayjs(videoData.snippet.publishedAt).toDate()
       })

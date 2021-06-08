@@ -4,7 +4,9 @@ import {
   CARDS,
   TRADING,
   PATCH_NOTES,
+  INTERVIEW,
   FUNDAMENTALS,
+  ESPORTS,
   GAMEPLAY,
   FUN,
   OTHER
@@ -17,6 +19,8 @@ const CATEGORY_LABELS = {
   [STRATEGY]: 'Strategy',
   [TRADING]: 'Trading',
   [PATCH_NOTES]: 'Patch Notes',
+  [INTERVIEW]: 'Interview',
+  [ESPORTS]: 'Esports',
   [GAMEPLAY]: 'Gameplay',
   [FUN]: 'Fun',
   [OTHER]: 'Other'
@@ -29,7 +33,9 @@ const COLORS = {
   [STRATEGY]: 'blue',
   [TRADING]: 'lime',
   [PATCH_NOTES]: 'red',
-  [GAMEPLAY]: 'brown lighten-2',
+  [INTERVIEW]: 'blue-grey lighten-3',
+  [ESPORTS]: 'brown lighten-1',
+  [GAMEPLAY]: 'brown lighten-3',
   [FUN]: 'purple',
   [OTHER]: 'grey'
 }
@@ -40,7 +46,7 @@ const DARK_COLORS = [
   'red',
   'purple',
   'grey',
-  'brown lighten-2'
+  'brown lighten-1'
 ]
 
 export default class Category {
