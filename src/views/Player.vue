@@ -158,7 +158,7 @@ export default {
     updatePlayer() {
       this.$gtag.event('updatePlayer')
       this.$store.dispatch('updatePlayer', this.player)
-      this.$router.push({ name: 'Home' })
+      this.$router.push({ name: 'About' })
     }
   },
   watch: {

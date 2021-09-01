@@ -3,7 +3,7 @@
     <v-app-bar color="#263238" dark app>
       <div class="d-flex align-center px-0">
         <v-img
-          @click="$router.push({ name: 'Home' })"
+          @click="$router.push({ name: 'Videos' })"
           alt="Gods Unchained Logo"
           class="mr-2 clickable"
           src="@/assets/images/gods-unchained-logo-256.png"
@@ -11,16 +11,17 @@
         />
 
         <v-toolbar-title>
-          <span @click="$router.push({ name: 'Home' })" class="clickable">
+          <span @click="$router.push({ name: 'Videos' })" class="clickable">
             <span class="d-none d-sm-inline">Gunchained</span>
             <span class="d-inline d-sm-none">GU</span>
           </span>
           <span class="d-none d-sm-inline">
-             {{ title }}
+            {{ title }}
           </span>
         </v-toolbar-title>
 
         <v-chip
+          v-show="title == 'Arena'"
           :disabled="activeUserCount < 2"
           color="green darken-2"
           class="ml-sm-4 ml-2"
@@ -63,13 +64,22 @@
         </div>
       </v-toolbar-items>
 
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mr-1"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        @click.stop="drawer = !drawer"
+        class="mr-1"
+      ></v-app-bar-nav-icon>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" fixed temporary right width="300">
       <span v-for="(section, index) in navigation" :key="index">
         <v-list dense nav>
-          <GATrack v-for="link in section" link :key="link.label" event-name="navigationClicked" :event-label="link.label">
+          <GATrack
+            v-for="link in section"
+            link
+            :key="link.label"
+            event-name="navigationClicked"
+            :event-label="link.label"
+          >
             <v-list-item link :to="link.route">
               <v-list-item-icon>
                 <v-icon>{{ link.icon }}</v-icon>
@@ -174,13 +184,6 @@ export default {
       navigation: [
         [
           {
-            label: 'Arena',
-            icon: 'mdi-fencing',
-            route: { name: 'Arena'},
-          }
-        ],
-        [
-          {
             label: 'Videos',
             icon: 'mdi-youtube',
             route: { name: 'Videos' }
@@ -189,6 +192,20 @@ export default {
             label: 'Suggest video',
             icon: 'mdi-message-plus-outline',
             route: { name: 'Feedback' }
+          }
+        ],
+        [
+          {
+            label: 'Arena',
+            icon: 'mdi-fencing',
+            route: { name: 'Arena' }
+          }
+        ],
+        [
+          {
+            label: 'About',
+            icon: 'mdi-information-outline',
+            route: { name: 'About' }
           }
         ]
       ]
@@ -220,7 +237,7 @@ export default {
   },
   methods: {
     logout() {
-      console.log("Logging out")
+      console.log('Logging out')
       firebase
         .auth()
         .signOut()
@@ -230,7 +247,7 @@ export default {
             message: 'Logged out.',
             color: 'default'
           })
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'About' })
         })
     },
     updateAvailability() {

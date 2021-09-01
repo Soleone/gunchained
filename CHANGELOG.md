@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.2.13
+
+- Change homepage to Videos and move old home to About
+
 ### 0.2.12
 
 - Add Esports and Interview categories
@@ -7,6 +11,7 @@
 ### 0.2.11
 
 - Add RSS feed link for video subscriptions
+
 ### 0.2.10
 
 - Fetch published date from Youtube API and use it to sort video list by

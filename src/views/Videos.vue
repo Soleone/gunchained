@@ -4,7 +4,7 @@
       <v-col>
         <v-breadcrumbs large :items="breadcrumbs" divider="/">
           <template v-slot:item="{ item }">
-            <v-breadcrumbs-item :href="item.href">
+            <v-breadcrumbs-item :to="item.to">
               {{ item.text }}
             </v-breadcrumbs-item>
           </template>
@@ -14,17 +14,28 @@
     <v-row>
       <v-col cols="12" lg="10">
         <GATrack event-name="clickCategoryFromList" event-label="All">
-          <v-chip class="mr-1 mb-2" to="/videos" :label="!videoCategory">
+          <v-chip
+            class="mr-1 mb-2"
+            :to="{ name: 'Videos' }"
+            :label="!videoCategory"
+          >
             All
           </v-chip>
         </GATrack>
 
-        <GATrack v-for="category in categories" event-name="clickCategoryFromList" :event-label="category" :key="category">
-          <v-chip class="mr-1 mb-2"
-                  :dark="categoryObject(category).isDarkColor()"
-                  :color="categoryObject(category).color()"
-                  :to="`/videos/categories/${category}`"
-                  :label="videoCategory === category">
+        <GATrack
+          v-for="category in categories"
+          event-name="clickCategoryFromList"
+          :event-label="category"
+          :key="category"
+        >
+          <v-chip
+            class="mr-1 mb-2"
+            :dark="categoryObject(category).isDarkColor()"
+            :color="categoryObject(category).color()"
+            :to="`/videos/categories/${category}`"
+            :label="videoCategory === category"
+          >
             {{ categoryObject(category).label() }}
           </v-chip>
         </GATrack>
@@ -60,16 +71,16 @@ export default {
   name: 'Videos',
   components: {
     Video,
-    GATrack
+    GATrack,
   },
   props: {
     category: {
       type: String,
-      required: false
+      required: false,
     },
     author: {
       type: String,
-      required: false
+      required: false,
     },
   },
   mounted() {
@@ -81,15 +92,14 @@ export default {
   computed: {
     ...mapState(['videos', 'videoCategory', 'videoAuthor']),
     breadcrumbs() {
-      return [
-        { text: 'Authors', href: '/videos' },
-        this.authorBreadcrumb
-      ].filter(item => item)
+      return [{ text: 'Authors', to: '/' }, this.authorBreadcrumb].filter(
+        (item) => item
+      )
     },
-   authorBreadcrumb() {
+    authorBreadcrumb() {
       if (this.videoAuthor) {
         return {
-          text: this.videoAuthor
+          text: this.videoAuthor,
         }
       } else {
         return null
@@ -97,7 +107,7 @@ export default {
     },
     categories() {
       return CATEGORIES
-    }
+    },
   },
   methods: {
     categoryObject(category) {
@@ -105,7 +115,7 @@ export default {
     },
     visitRSS() {
       window.location.href = '/feed.xml'
-    }
+    },
   },
   head: {
     link: [
@@ -113,10 +123,10 @@ export default {
         rel: 'alternate',
         type: 'application/rss+xml',
         title: 'Gunchained videos feed',
-        href: '/feed.xml'
-      }
-    ]
-  }
+        href: '/feed.xml',
+      },
+    ],
+  },
 }
 </script>
 

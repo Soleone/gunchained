@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row >
+    <v-row>
       <v-col class="text-center">
-        <v-btn to="/videos" color="primary">
+        <v-btn :to="{ name: 'Videos' }" color="primary">
           <v-icon left>mdi-arrow-left</v-icon>
           Back
         </v-btn>
@@ -23,13 +23,13 @@ import { mapState } from 'vuex'
 export default {
   name: 'VideoShow',
   components: {
-    Video
+    Video,
   },
   props: {
     id: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   mounted() {
     this.$store.dispatch('loadCurrentVideo', this.id)
@@ -38,11 +38,11 @@ export default {
     ...mapState({ video: 'currentVideo' }),
     breadcrumbs() {
       return [
-        { text: 'Videos', href: '/videos' },
-        { text: this.video.title }
+        { text: 'Videos', to: "{ name: 'Videos' }" },
+        { text: this.video.title },
       ]
     },
-  }
+  },
 }
 </script>
 

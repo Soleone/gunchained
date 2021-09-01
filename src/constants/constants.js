@@ -52,6 +52,6 @@ export const CHANNELS_BY_AUTHOR = {
   Rogvarok: 'https://www.youtube.com/channel/UCdaFKgefAytNPi-kmPOQcaw',
   Fakemews9: 'https://www.youtube.com/channel/UCbopgNya6aLhYi6GE8mNMvw',
   TGRInteractive: 'https://www.youtube.com/channel/UCctybG40v1jj-exD5D8VqoA',
-  BadBabaGU: 'https://www.youtube.com/channel/UCgoEoyKD-kTuSQQpSQpI1aA/videos',
+  BadBabaGU: 'https://www.youtube.com/channel/UCgoEoyKD-kTuSQQpSQpI1aA',
   ClutchHS: 'https://www.youtube.com/channel/UCUqvAp0-3XIhx27FFt7pGIA'
 }

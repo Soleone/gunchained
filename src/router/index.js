@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import About from '../views/About.vue'
 import Arena from '../views/Arena.vue'
 import Login from '../views/Login.vue'
 import Player from '../views/Player.vue'
@@ -13,9 +13,14 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/about',
+    name: 'About',
+    component: About
+  },
+  {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Videos',
+    component: Videos
   },
   {
     path: '/arena',
@@ -31,11 +36,6 @@ const routes = [
     path: '/player',
     name: 'Player',
     component: Player
-  },
-  {
-    path: '/videos',
-    name: 'Videos',
-    component: Videos
   },
   {
     path: '/videos/:id',
