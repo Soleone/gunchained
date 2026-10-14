@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="#263238" dark app>
+    <v-app-bar app flat>
       <div class="d-flex align-center px-0">
         <v-img
           @click="$router.push({ name: 'Videos' })"
@@ -43,7 +43,6 @@
       <v-toolbar-items class="d-flex align-center">
         <div v-if="user" class="d-flex align-center ">
           <v-switch
-            dark
             v-model="player.challenge.available"
             color="success"
             class="force-height mr-2"
@@ -63,6 +62,8 @@
           </v-chip>
         </div>
       </v-toolbar-items>
+
+      <ThemePicker />
 
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
@@ -169,13 +170,15 @@ import Tooltip from '@/components/vuetify-ext/Tooltip.vue'
 import FooterBtn from '@/components/vuetify-ext/FooterBtn.vue'
 import { VERSION } from '@/constants/constants.js'
 import GATrack from '@/components/shared/GATrack.js'
+import ThemePicker from '@/components/ThemePicker.vue'
 
 export default {
   name: 'App',
   components: {
     Tooltip,
     FooterBtn,
-    GATrack
+    GATrack,
+    ThemePicker
   },
   data() {
     return {

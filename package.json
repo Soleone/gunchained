@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
+    "serve": "npm run build --prefix picker && NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "yarn theme:build && NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
+    "theme:build": "npm ci --prefix picker && npm run build --prefix picker",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "media:capture": "node scripts/capture-media.mjs"

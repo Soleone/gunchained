@@ -26,43 +26,32 @@ const CATEGORY_LABELS = {
   [OTHER]: 'Other'
 }
 
-const COLORS = {
-  [FUNDAMENTALS]: 'teal',
+// Each category takes a hue from the active theme's palette (src/styles/theme.css), so the chips
+// change with the theme instead of clashing with it.
+const TONES = {
+  [FUNDAMENTALS]: 'cyan',
   [DECKS]: 'orange',
   [CARDS]: 'yellow',
   [STRATEGY]: 'blue',
-  [TRADING]: 'lime',
+  [TRADING]: 'green',
   [PATCH_NOTES]: 'red',
-  [INTERVIEW]: 'blue-grey lighten-3',
-  [ESPORTS]: 'brown lighten-1',
-  [GAMEPLAY]: 'brown lighten-3',
-  [FUN]: 'purple',
+  [INTERVIEW]: 'slate',
+  [ESPORTS]: 'brown',
+  [GAMEPLAY]: 'sand',
+  [FUN]: 'magenta',
   [OTHER]: 'grey'
 }
-
-const DARK_COLORS = [
-  'blue',
-  'teal',
-  'red',
-  'purple',
-  'grey',
-  'brown lighten-1'
-]
 
 export default class Category {
   constructor(category) {
     this.category = category
   }
 
-  color() {
-    return COLORS[this.category]
+  chipClass() {
+    return `category-chip category-${TONES[this.category]}`
   }
 
   label() {
     return CATEGORY_LABELS[this.category]
-  }
-
-  isDarkColor() {
-    return DARK_COLORS.includes(this.color())
   }
 }

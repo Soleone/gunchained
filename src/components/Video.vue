@@ -26,7 +26,7 @@
 
         <v-card-text class="py-0 pb-2 d-flex justify-space-between align-center">
           <GATrack event-name="clickCategoryFromVideo" :event-label="video.category">
-            <v-chip :dark="categoryObject.isDarkColor()" :color="categoryObject.color()" :to="`/videos/categories/${video.category}`">
+            <v-chip :class="categoryObject.chipClass()" :to="`/videos/categories/${video.category}`">
               {{ categoryObject.label() }}
             </v-chip>
           </GATrack>

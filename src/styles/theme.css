@@ -1,0 +1,137 @@
+/*
+ * Vuetify drawn in the active theme. The theme picker (picker/) puts a palette on <html> as
+ * shadcn-style tokens (--background, --primary, --om-red ...); this file points Vuetify's
+ * color names and surfaces at them, so every theme restyles the app without Vuetify knowing.
+ */
+html[data-theme] {
+  --v-primary-base: var(--primary);
+  --v-secondary-base: var(--secondary);
+  --v-accent-base: var(--primary);
+  --v-error-base: var(--destructive);
+  --v-info-base: var(--om-blue);
+  --v-success-base: var(--om-green);
+  --v-warning-base: var(--om-yellow);
+  --v-anchor-base: var(--primary);
+  background-color: var(--background);
+}
+
+/* Surfaces */
+.v-application.theme--light,
+.v-application.theme--dark {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.v-application .v-app-bar.v-toolbar.v-sheet {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-bottom: 1px solid var(--border);
+}
+
+.v-application .v-card.v-sheet,
+.v-application .v-navigation-drawer,
+.v-application .v-list.v-sheet {
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+.v-application .v-footer.v-sheet {
+  background-color: var(--background);
+  color: var(--muted-foreground);
+}
+
+.v-application .v-divider {
+  border-color: var(--border);
+}
+
+/* Text */
+.v-application .v-toolbar__title,
+.v-application .v-card__title,
+.v-application .v-list-item__title {
+  color: var(--card-foreground);
+}
+
+.v-application .v-card__subtitle,
+.v-application .v-card__text,
+.v-application .v-breadcrumbs li,
+.v-application .v-breadcrumbs__item--disabled {
+  color: var(--muted-foreground);
+}
+
+.v-application .v-icon.theme--light,
+.v-application .v-icon.theme--dark {
+  color: var(--muted-foreground);
+}
+
+.v-application .v-list-item--active .v-icon,
+.v-application .v-list-item--active .v-list-item__title {
+  color: var(--primary);
+}
+
+/* Ink on a filled button is the theme's own, not Vuetify's fixed white. */
+.v-application .v-btn:not(.v-btn--outlined):not(.v-btn--text).primary,
+.v-application .v-btn:not(.v-btn--outlined):not(.v-btn--text).accent {
+  color: var(--primary-foreground);
+}
+
+.v-application .v-btn:not(.v-btn--outlined):not(.v-btn--text).error {
+  color: var(--destructive-foreground);
+}
+
+.v-application .v-btn:not(.v-btn--outlined):not(.v-btn--text).success,
+.v-application .v-btn:not(.v-btn--outlined):not(.v-btn--text).info,
+.v-application .v-btn:not(.v-btn--outlined):not(.v-btn--text).warning {
+  color: var(--om-darker-background);
+}
+
+.v-application .v-btn .v-icon {
+  color: inherit;
+}
+
+/* Plain chips (All, the publish date, RSS) */
+.v-application .v-chip.theme--light:not(.category-chip),
+.v-application .v-chip.theme--dark:not(.category-chip) {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--border);
+}
+
+.v-application .v-chip.v-chip--outlined:not(.category-chip) {
+  background-color: transparent;
+  color: var(--muted-foreground);
+}
+
+/*
+ * Category chips: a tint of the category's hue with the hue as ink. The chip of the category on
+ * screen (Vuetify's label shape) fills with the hue and takes the canvas as ink, since a palette's
+ * hues are made to read against its canvas.
+ */
+.category-cyan { --category: var(--om-cyan); }
+.category-orange { --category: var(--om-orange); }
+.category-yellow { --category: var(--om-yellow); }
+.category-blue { --category: var(--om-blue); }
+.category-green { --category: var(--om-green); }
+.category-red { --category: var(--om-red); }
+.category-magenta { --category: var(--om-magenta); }
+.category-brown { --category: var(--om-brown); }
+.category-slate { --category: color-mix(in oklab, var(--om-blue) 45%, var(--foreground)); }
+.category-sand { --category: color-mix(in oklab, var(--om-brown) 50%, var(--foreground)); }
+.category-grey { --category: var(--muted-foreground); }
+
+.v-application .v-chip.category-chip {
+  background-color: color-mix(in oklab, var(--category) 16%, transparent);
+  /* Lifted toward the text color, so the darker hues (brown) still read on a dark canvas. */
+  color: color-mix(in oklab, var(--category) 65%, var(--foreground));
+  border: 1px solid color-mix(in oklab, var(--category) 40%, transparent);
+}
+
+.v-application .v-chip.category-chip.v-chip--label {
+  background-color: var(--category);
+  color: var(--background);
+}
+
+/* The palette button sits between the profile and the menu, centered like the other app bar icons. */
+.theme-picker {
+  display: flex;
+  align-items: center;
+}

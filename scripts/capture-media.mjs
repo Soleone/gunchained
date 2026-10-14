@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Records the live site for the README and portfolios: a hero still of the video list and a loop that scrolls
-// it, filters to Decks, opens a video and goes back to the full list.
+// it, spins the theme picker from Gilt to Flexoki Light, filters to Decks, opens a video, goes back to the
+// full list and switches back to Gilt.
 // Usage: yarn media:capture [--url https://gunchained.soleone.xyz]
 // Needs agent-browser (with its browser installed) and FFmpeg on the PATH. Recording and encoding come from showcase.
 import { record } from '@soleone/showcase/capture'
@@ -30,11 +31,23 @@ const { durationMs, grid } = await record({
     await page.run('screenshot', hero)
   },
   async drive(page) {
+    const pickTheme = async (key, steps) => {
+      await page.run('click', 'button[aria-label="Choose a theme"]')
+      await page.sleep(1200)
+      for (let i = 0; i < steps; i++) {
+        await page.run('press', key)
+        await page.sleep(420)
+      }
+      await page.sleep(500)
+      await page.run('press', 'Enter')
+      await page.sleep(1800)
+    }
     await page.sleep(1000)
     await page.eval(smoothScroll(900))
     await page.sleep(1800)
     await page.eval(smoothScroll(0))
     await page.sleep(1200)
+    await pickTheme('ArrowRight', 5)
     await page.run('click', 'a.v-chip[href="/videos/categories/decks"]')
     await page.waitFor(`location.pathname.endsWith('/decks') && ${listReady}`)
     await page.sleep(2200)
@@ -43,10 +56,12 @@ const { durationMs, grid } = await record({
     await page.sleep(3000)
     await page.run('click', 'a.v-btn[href="/"]')
     await page.waitFor(atAll)
-    await page.sleep(1500)
+    await page.sleep(1200)
+    await pickTheme('ArrowLeft', 5)
+    await page.sleep(600)
   },
   async verify(page) {
-    if (!(await page.eval(`${atAll} && scrollY === 0`))) return 'did not end on the full video list'
+    if (!(await page.eval(`${atAll} && scrollY === 0 && document.documentElement.dataset.theme === 'gilt'`))) return 'did not end on the full video list in Gilt'
   }
 })
 

@@ -30,9 +30,7 @@
           :key="category"
         >
           <v-chip
-            class="mr-1 mb-2"
-            :dark="categoryObject(category).isDarkColor()"
-            :color="categoryObject(category).color()"
+            :class="['mr-1 mb-2', categoryObject(category).chipClass()]"
             :to="`/videos/categories/${category}`"
             :label="videoCategory === category"
           >

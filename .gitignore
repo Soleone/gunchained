@@ -27,3 +27,6 @@ firebase.json
 .firebaserc
 .firebase
 .vercel
+
+# Built from picker/
+/public/theme
