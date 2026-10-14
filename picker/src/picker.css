@@ -1,7 +1,11 @@
-/* Tailwind for the theme picker only. No preflight: Vuetify owns the page's base styles. */
-@layer theme, base, components, utilities;
+/*
+ * Tailwind for the theme picker only. No preflight: Vuetify owns the page's base styles. Its reset
+ * (ress.css: `* { padding: 0; margin: 0 }` and more) is unlayered, and unlayered CSS beats every
+ * layer, so the utilities stay unlayered too and win on specificity instead.
+ */
+@layer theme;
 @import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities) source("./");
+@import "tailwindcss/utilities.css" source("./");
 @import "tw-animate-css";
 @import "./components/soleone/theme/theme.css";
 @import "./components/soleone/material/material.css";
@@ -32,4 +36,36 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* The picker opens in a portal on <body>, outside .v-application where Vuetify sets the font, so it
+   gets the base that Tailwind's preflight would give it on a Tailwind site. */
+body {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* ress.css stops every background from tiling, and the cards' grain is a tile. */
+[role="dialog"] *,
+.theme-picker * {
+  background-repeat: repeat;
+}
+
+/* Vuetify's legacy grid makes every .flex a growing column (`flex: 1 1 auto; max-width: 100%`), where
+   Tailwind's .flex only means display: flex. Undo it in the picker and restore the flex utilities it beat. */
+[role="dialog"] .flex:not(.flex-1),
+.theme-picker .flex:not(.flex-1) {
+  flex: 0 1 auto;
+  max-width: none;
+}
+
+[role="dialog"] .flex-1,
+.theme-picker .flex-1 {
+  flex: 1 1 0%;
+  max-width: none;
+}
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
