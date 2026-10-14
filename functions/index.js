@@ -8,9 +8,9 @@ exports.feed = functions.https.onRequest(async (req, res) => {
   const rssFeed = new RSS({
     title: 'Gunchained videos',
     description: 'Gods Unchained videos feed',
-    feed_url: 'https://gunchained.app/feed.xml',
-    site_url: 'https://gunchained.app',
-    image_url: 'https://gunchained.app/img/gods-unchained-logo-256.f286f7ea.png',
+    feed_url: 'https://gunchained.soleone.xyz/feed.xml',
+    site_url: 'https://gunchained.soleone.xyz',
+    image_url: 'https://gunchained.soleone.xyz/img/gods-unchained-logo-256.f286f7ea.png',
     language: 'en',
     ttl: '60'
   });
@@ -19,7 +19,7 @@ exports.feed = functions.https.onRequest(async (req, res) => {
   querySnapshot.forEach(doc => {
     let id = doc.id;
     let video = doc.data();
-    let url = `https://gunchained.app/videos/${id}`;
+    let url = `https://gunchained.soleone.xyz/videos/${id}`;
 
     let item = {
       title: video.title,

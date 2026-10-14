@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Soleone/showcase/main/schema/showcase.schema.json",
+  "title": "Gunchained",
+  "pitch": "A curated library of nearly 300 Gods Unchained videos from 16 creators, sorted into categories like Decks and Strategy so players find the good stuff fast.",
+  "description": "A Vue and Vuetify single page app on Firestore. Signed-in players can share challenge codes in the Arena, admins add videos straight from a YouTube link, and a Cloud Function serves the list as RSS.",
+  "kind": "web-app",
+  "stage": "product",
+  "year": 2021,
+  "tech": ["Vue", "Vuetify", "Vuex", "Firebase", "Firestore"],
+  "repo": "https://github.com/Soleone/gunchained",
+  "live": "https://gunchained.soleone.xyz",
+  "media": {
+    "hero": "docs/media/hero.png",
+    "motion": "docs/media/demo.webp",
+    "capture": "yarn media:capture"
+  },
+  "brand": {
+    "icon": "src/assets/images/gods-unchained-logo-256.png"
+  },
+  "demo": {
+    "strategy": "hosted",
+    "local": "yarn install && yarn serve",
+    "externals": [
+      {
+        "name": "Firebase (Firestore, Auth and the RSS function)",
+        "type": "service",
+        "seam": "firebase.config.js",
+        "standIn": "real",
+        "note": "The site and a local run both read the real video library from Firestore; signing in uses real Firebase accounts."
+      },
+      {
+        "name": "YouTube Data API",
+        "type": "service",
+        "seam": "the API key field on the upload page",
+        "standIn": "bring-your-own",
+        "note": "Only admins adding videos need it, with their own key."
+      }
+    ]
+  }
+}

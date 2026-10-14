@@ -1,30 +1,41 @@
 # Gunchained
 
-## Overview
+A curated library of nearly 300 Gods Unchained videos from 16 creators, sorted into categories like Decks and Strategy so players find the good stuff fast.
 
-A single page web app that helps Gods Unchained players share their challenge codes to play with each other.
+**[Visit the live site](https://gunchained.soleone.xyz)**
 
-- Live at https://gunchained.app
-- View [changelog](https://github.com/Soleone/gunchained/blob/master/CHANGELOG.md) for recent changes.
-- View [roadmap](https://github.com/Soleone/gunchained/blob/master/ROADMAP.md) for potential future changes.
-- Built using Vue, Vuetify, Vuex, DayJS.
-- Backed by Firebase for authentication and storage
-- Hosted for free using Github pages
-- Might be extended eventually to have more than the Arena features for challenge codes.
+![Scrolling the video list, filtering to Decks and opening a video](docs/media/demo.webp)
+
+## Features
+
+- Every video as a card with its thumbnail, creator and publish date, newest first.
+- One click filters by category (Fundamentals, Decks, Cards, Strategy, Trading, Esports and more) or by creator.
+- Each video has its own linkable page with the YouTube player.
+- An RSS feed of the newest 50 videos at `/feed.xml`.
+- The Arena, where signed-in players share their challenge codes to find matches.
+- An admin upload page that fills in a video's details from its YouTube link.
+
+The [changelog](CHANGELOG.md) lists what changed and the [roadmap](ROADMAP.md) collects ideas.
+
+## Run it locally
+
+Needs Node 22 and Yarn 1. The app reads the real video library from Firestore, so there is nothing to set up.
+
+```sh
+yarn install
+yarn serve
+```
+
+`yarn build` writes the static site to `dist`.
+
+## How it works
+
+- Vue 2 with Vuetify, Vuex and Vue Router, built with Vue CLI.
+- Firebase for sign-in (email, Google, Twitter, GitHub) and Firestore for videos, players and feedback. The web config in `firebase.config.js` is public by design; Firestore rules guard the data.
+- A Cloud Function in `functions/` renders the RSS feed.
+- Hosted on Vercel at [gunchained.soleone.xyz](https://gunchained.soleone.xyz); `vercel.json` sends `/feed.xml` to the function.
+- `yarn media:capture` re-records the demo loop above from the live site with [showcase](https://github.com/Soleone/showcase).
 
 ## Contributing
 
-Contributions and suggestions are always welcome.
-
-Please submit new issues at:
-https://github.com/Soleone/gunchained/issues
-
-Take a look at the [roadmap](https://github.com/Soleone/gunchained/blob/master/ROADMAP.md) document for ideas on what to work on.
-
-### Project setup
-
-`yarn install`
-
-#### Compiles and hot-reloads for development
-
-`yarn serve`
+Suggestions and issues are welcome at [github.com/Soleone/gunchained/issues](https://github.com/Soleone/gunchained/issues).
