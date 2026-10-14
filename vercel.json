@@ -2,7 +2,7 @@
   "buildCommand": "yarn build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/feed.xml", "destination": "https://us-central1-gunchained-f3adc.cloudfunctions.net/feed" },
+    { "source": "/feed.xml", "destination": "/api/feed" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

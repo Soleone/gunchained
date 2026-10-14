@@ -33,7 +33,7 @@ yarn serve
 
 - Vue 2 with Vuetify, Vuex and Vue Router, built with Vue CLI.
 - Firebase for sign-in (email, Google, Twitter, GitHub) and Firestore for videos, players and feedback. The web config in `firebase.config.js` is public by design; Firestore rules guard the data.
-- A Cloud Function in `functions/` renders the RSS feed.
+- `api/feed.js`, a Vercel function, renders the RSS feed from Firestore's public REST API.
 - Hosted on Vercel at [gunchained.soleone.xyz](https://gunchained.soleone.xyz); `vercel.json` sends `/feed.xml` to the function.
 - `yarn media:capture` re-records the demo loop above from the live site with [showcase](https://github.com/Soleone/showcase).
 

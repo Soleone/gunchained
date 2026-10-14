@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/Soleone/showcase/main/schema/showcase.schema.json",
   "title": "Gunchained",
   "pitch": "A curated library of nearly 300 Gods Unchained videos from 16 creators, sorted into categories like Decks and Strategy so players find the good stuff fast.",
-  "description": "A Vue and Vuetify single page app on Firestore. Signed-in players can share challenge codes in the Arena, admins add videos straight from a YouTube link, and a Cloud Function serves the list as RSS.",
+  "description": "A Vue and Vuetify single page app on Firestore. Signed-in players can share challenge codes in the Arena, admins add videos straight from a YouTube link, and a Vercel function serves the newest videos as RSS.",
   "kind": "web-app",
   "stage": "product",
   "year": 2021,
