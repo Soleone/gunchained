@@ -3,7 +3,7 @@
 import { createRoot } from "react-dom/client"
 import { ThemeProvider } from "@/components/soleone/theme"
 import { ThemePicker } from "@/components/soleone/theme-picker"
-import { HOTKEY_FALLBACKS, THEME_STORAGE_KEY, themeHead } from "./theme"
+import { THEME_STORAGE_KEY, themeHead } from "./theme"
 import "./picker.css"
 
 declare global {
@@ -15,7 +15,7 @@ declare global {
 function mount(element: HTMLElement) {
   const root = createRoot(element)
   root.render(
-    <ThemeProvider themes={themeHead.themeOptions} storageKey={THEME_STORAGE_KEY} hotkeyFallbacks={HOTKEY_FALLBACKS}>
+    <ThemeProvider themes={themeHead.themeOptions} storageKey={THEME_STORAGE_KEY}>
       <ThemePicker tagline={{ text: "Gods Unchained videos", highlight: "sorted by category" }} />
     </ThemeProvider>,
   )

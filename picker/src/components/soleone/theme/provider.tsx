@@ -38,19 +38,14 @@ function withoutTransitions(change: () => void) {
   setTimeout(() => style.remove(), 1)
 }
 
-type HotkeyFallbacks = { dark: string; light: string }
-
 function ThemeProvider({
   themes,
   storageKey,
-  hotkeyFallbacks,
   children,
 }: {
   themes: ThemeOption[]
   /** Where the visitor's choice is remembered in localStorage; the same key the head script reads. */
   storageKey: string
-  /** Where D lands on a side (dark or light) the visitor has not picked a theme on yet. */
-  hotkeyFallbacks: HotkeyFallbacks
   children: React.ReactNode
 }) {
   const theme = React.useSyncExternalStore(subscribe, readTheme, readNothing)
@@ -102,7 +97,6 @@ function ThemeProvider({
 
   return (
     <ThemeContext value={value}>
-      <ThemeHotkey fallbacks={hotkeyFallbacks} />
       {children}
     </ThemeContext>
   )
@@ -113,10 +107,6 @@ function useTheme() {
   if (!context) throw new Error("useTheme must be used inside <ThemeProvider>")
   return context
 }
-
-// D flips between dark and light. Each side remembers the theme last used there, so a visitor
-// who picked Nord and pressed D twice lands back on Nord; the first flip from a side they never
-// chose goes to the fallbacks the provider was given.
 
 /** Whether a keystroke belongs to what the visitor is typing in, so single-key shortcuts leave it alone. */
 function isInteractiveTarget(target: EventTarget | null) {
@@ -132,35 +122,6 @@ function isInteractiveTarget(target: EventTarget | null) {
     // An open theme picker is a listbox or a dialog; keys there are its own, not shortcuts.
     target.closest('[role="listbox"], [role="combobox"], [role="dialog"]') !== null
   )
-}
-
-function ThemeHotkey({ fallbacks }: { fallbacks: HotkeyFallbacks }) {
-  const { theme, resolvedMode, themes, setTheme } = useTheme()
-  const remembered = React.useRef<Partial<Record<"dark" | "light", string>>>({})
-  const mode = themes.find((candidate) => candidate.name === theme)?.mode
-
-  // A system theme is both sides at once, so it is never remembered as either.
-  React.useEffect(() => {
-    if (theme && (mode === "dark" || mode === "light")) remembered.current[mode] = theme
-  }, [theme, mode])
-
-  React.useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.defaultPrevented || event.repeat) return
-      if (event.metaKey || event.ctrlKey || event.altKey) return
-      if (event.key.toLowerCase() !== "d") return
-      if (isInteractiveTarget(event.target)) return
-
-      const other = resolvedMode === "dark" ? "light" : "dark"
-      const target = remembered.current[other] ?? fallbacks[other]
-      if (themes.some((candidate) => candidate.name === target)) setTheme(target)
-    }
-
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [resolvedMode, themes, setTheme, fallbacks])
-
-  return null
 }
 
 export { ThemeProvider, useTheme, isInteractiveTarget }
