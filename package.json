@@ -27,7 +27,7 @@
     "vuexfire": "^3.2.4"
   },
   "devDependencies": {
-    "@soleone/showcase": "0.2.0",
+    "@soleone/showcase-capture": "^0.1.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",

@@ -1269,10 +1269,10 @@
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
 
-"@soleone/showcase@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@soleone/showcase/-/showcase-0.2.0.tgz#d4c61eaef213d6affdbe3df0d41084c9a38620f1"
-  integrity sha512-1nBY09+lW9iorn1XJrimY0+JmOiYmAfIhgmAlec063YIFzj1qeCztqIp2CMnnfH4IVr8cDXLuo0rglVSbZ5GTg==
+"@soleone/showcase-capture@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@soleone/showcase-capture/-/showcase-capture-0.1.0.tgz#1bdcd3f7d0ef88574d0bf47d5a9bcd0f3b943060"
+  integrity sha512-tOEzyR8/mHG8U/7Jlg+zLYfK2XkOyI7Fw4cJx44bzZTrtc4KwHjt487vB1U+bAIWJ6fjca2p8z4pvcPKg12EhQ==
 
 "@types/anymatch@*":
   version "1.3.1"

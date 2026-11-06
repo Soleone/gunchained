@@ -4,7 +4,7 @@
 // full list and switches back to Gilt.
 // Usage: yarn media:capture [--url https://gunchained.soleone.xyz]
 // Needs agent-browser (with its browser installed) and FFmpeg on the PATH. Recording and encoding come from showcase.
-import { record } from '@soleone/showcase/capture'
+import { record } from '@soleone/showcase-capture'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import { parseArgs } from 'node:util'
